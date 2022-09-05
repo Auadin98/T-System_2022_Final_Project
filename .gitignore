@@ -5,3 +5,4 @@ out
 *.class
 /target/
 /score.bin
+.DS_Store
