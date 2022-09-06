@@ -1,0 +1,420 @@
+<!DOCTYPE HTML>
+<html
+        xmlns:th="http://www.thymeleaf.org"
+        xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
+        layout:decorate="~{layout/layoutGamestudio.html}"
+        lang="sk">
+<head>
+
+
+    <title>Gamestudio - Minesweeper</title>
+</head>
+
+<body>
+
+<main layout:fragment="content">
+
+    <h2>Minesweeper</h2>
+
+    <div class="minesControl">
+        <span id="gameStatus"></span>
+
+        <button type="button" id="btToOpenOrMark" class="abutton" onclick="processModeChangeClick()">Na otváranie
+        </button>
+        <button type="button" id="btNewGame" class="abutton" onclick="processNewGameClick()">Nová hra</button>
+    </div>
+
+    <section id="minesweeperField"></section>
+
+
+    <section>
+        <h3>Najlepšie skóre</h3>
+        <table class="scores">
+            <thead>
+            <tr>
+                <th>Poradie</th>
+                <th>Meno</th>
+                <th>Body</th>
+                <th>Dátum a čas hry</th>
+            </tr>
+            </thead>
+            <tbody id="scoresTableBody">
+            </tbody>
+        </table>
+    </section>
+
+    <section>
+        <br/>
+        <label for="comment">Zadaj komentar:</label> <br/>
+        <form id="commentForm">
+            <input id="comment" type="text" name="comment" maxlength="1000"/>
+            <button id="commentSubmit" type="submit">Odoslať</button>
+            <br/>
+        </form>
+        <div>
+            <table class="scores">
+                <thead>
+                <tr>
+                    <th>Meno</th>
+                    <th>Komentár</th>
+                    <th>Dátum</th>
+                </tr>
+
+
+                </thead>
+                <h3>Komentare</h3>
+
+                <tbody id="commentsTable">
+                </tbody>
+            </table>
+        </div>
+    </section>
+
+    <section>
+        <div>
+            Priemerný rating: <span id="averageRating"></span>
+        </div>
+        <div id="averageRatingDivForm">
+            <form id="ratingForm">
+                <label for="rating">Zadaj rating </label>
+                <input id="rating" type="number" name="rating" min="1" max="5"required/><br>
+                <button type="submit">Odoslat</button>
+                <br/>
+            </form>
+        </div>
+    </section>
+
+
+    <script type="text/javascript">
+
+        const viewElements = {
+            minesweeperField: document.getElementById("minesweeperField"),
+            scoresTableBody: document.getElementById("scoresTableBody"),
+            btToOpenOrMark: document.getElementById("btToOpenOrMark"),
+            gameStatus: document.getElementById("gameStatus"),
+            averageRating: document.getElementById("averageRating"),
+            comments: document.getElementById("commentsTable")
+        }
+
+        const divRatingForm = document.getElementById("averageRatingDivForm");
+
+        document.getElementById("ratingForm").addEventListener("submit", event => {
+            event.preventDefault();
+            submitRating("http://localhost:9090/minesweeper/jsonrating");
+        });
+        document.getElementById("commentForm").addEventListener("submit", event => {
+            event.preventDefault();
+            submitComment("http://localhost:9090/minesweeper/jsoncomment");
+        })
+
+        //--------------------------------------------------------------------------------
+
+        fetchAndRenderBestScores("/api/score/minesweeper", viewElements);
+        fetchAndRenderRating("/api/rating/avg/minesweeper", viewElements);
+        fetchAndRenderComments("/api/comment/minesweeper", viewElements);
+        fetchGameFieldAndRenderAll("/minesweeper/json", viewElements);
+
+        //--------------------------------------------------------------------------------
+
+        async function submitComment(url) {
+            const request =
+                {
+                    method: 'POST',
+                    headers: {
+                        'Content-Type': 'application/json;charset=utf-8',
+                    },
+                    body: document.getElementById("comment").value.trim()
+                };
+            await fetch(url, request)
+                .then(response => {
+                    if (response.ok) {
+                        return response.text();
+                    } else {
+                        return Promise.reject(new Error(`Server answered with ${response.status}: ${response.statusText}.`));
+                    }
+                });
+
+            fetchAndRenderComments("/api/comment/minesweeper", viewElements);
+        }
+
+        async function submitRating(url) {
+            const request =
+                {
+                    method: 'POST',
+                    body: document.getElementById("rating").value.trim()
+                }
+            await fetch(url, request)
+                .then(response => {
+                    if (response.ok) {
+                        return response.text();
+                    } else {
+                        return Promise.reject(new Error(`Server answered with ${response.status}: ${response.statusText}.`));
+                    }
+                });
+
+            fetchAndRenderRating("/api/rating/avg/minesweeper", viewElements);
+        }
+
+        //--------------------------------------------------------------------------------
+
+        function processTileClick(row, col) {
+            fetchGameFieldAndRenderAll(
+                `/minesweeper/json?row=${row}&column=${col}`,
+                viewElements);
+        }
+
+        function processNewGameClick() {
+            fetchGameFieldAndRenderAll(
+                "/minesweeper/jsonnew",
+                viewElements);
+        }
+
+        function processModeChangeClick() {
+            fetchGameFieldAndRenderAll(
+                "/minesweeper/jsonmark",
+                viewElements);
+        }
+
+        //--------------------------------------
+        function fetchAndRenderComments(url, elements) {
+            fetch(url)  //there may be a second parameter, an object wih options, but we do not need it now.
+                .then(response => {      //fetch promise fulfilled (operation completed successfully)
+                    if (response.ok) {    //successful execution includes an error response from the server. So we have to check the return status of the response here.
+                        return response.json(); //we return a new promise with the response data as a js object, constructed from the JSON string in the response
+                    } else { //if we get server error
+                        return Promise.reject(new Error(`Comments acquisition failed. Server answered with ${response.status}: ${response.statusText}.`)); //we return a rejected promise to be catched later
+                    }
+                })
+                .then(comments => { //here we process the returned response data in JSON ...
+                    console.log(comments);
+                    renderComments(comments, elements);
+                })
+                .catch(error => { ////here we process all the failed promises
+                    errorMessage = "Nepodarilo sa získať alebo zobraziť komentáre. Podrobnosti: " + error;
+                    // console.log(errorMessage);
+                    elements.comments.innerHTML = errorMessage;
+                });
+        }
+
+        function fetchAndRenderRating(getJsonUrl, viewElements) {
+            fetch(getJsonUrl)  //there may be a second parameter, an object wih options, but we do not need it now.
+                .then(response => {      //fetch promise fulfilled (operation completed successfully)
+                    if (response.ok) {    //successful execution includes an error response from the server. So we have to check the return status of the response here.
+                        return response.json(); //we return a new promise with the response data as a js object, constructed from the JSON string in the response
+                    } else { //if we get server error
+                        return Promise.reject(new Error(`Average rating acquisition failed. Server answered with ${response.status}: ${response.statusText}.`)); //we return a rejected promise to be catched later
+                    }
+                })
+                .then(rating => { //here we process the returned response data in JSON ...
+                    renderRating(rating, viewElements);
+                })
+                .catch(error => { ////here we process all the failed promises
+                    errorMessage = "Nepodarilo sa získať alebo zobraziť priemerný rating. Podrobnosti: " + error;
+                    // console.log(errorMessage);
+                    viewElements.averageRating.innerHTML = errorMessage;
+                });
+        }
+
+        function fetchAndRenderBestScores(getJsonUrl, viewElements) {
+            fetch(getJsonUrl)  //there may be a second parameter, an object wih options, but we do not need it now.
+                .then(response => {      //fetch promise fulfilled (operation completed successfully)
+                    if (response.ok) {    //successful execution includes an error response from the server. So we have to check the return status of the response here.
+                        return response.json(); //we return a new promise with the response data as a js object, constructed from the JSON string in the response
+                    } else { //if we get server error
+                        return Promise.reject(new Error(`Best scores acquisition failed. Server answered with ${response.status}: ${response.statusText}.`)); //we return a rejected promise to be catched later
+                    }
+                })
+                .then(bestScoresData => { //here we process the returned response data in JSON ...
+                    renderBestScores(bestScoresData, viewElements);
+                })
+                .catch(error => { ////here we process all the failed promises
+                    errorMessage = "Nepodarilo sa získať alebo zobraziť údaje o najlepších skóre. Podrobnosti: " + error;
+                    viewElements.scoresTableBody.innerHTML = errorMessage;
+                });
+        }
+
+        function fetchGameFieldAndRenderAll(getJsonUrl, viewElements) {
+            fetch(getJsonUrl)  //there may be a second parameter, an object wih options, but we do not need it now.
+                .then(response => {      //fetch promise fulfilled (operation completed successfully)
+                    if (response.ok) {    //successful execution includes an error response from the server. So we have to check the return status of the response here.
+                        return response.json(); //we return a new promise with the response data as a js object, constructed from the JSON string in the response
+                    } else { //if we get server error
+                        return Promise.reject(new Error(`Gamefield acquisition failed. Server answered with ${response.status}: ${response.statusText}.`)); //we return a rejected promise to be catched later
+                    }
+                })
+                .then(gameFieldData => { //here we process the returned response data in JSON ...
+                    console.log(gameFieldData);
+
+                    //1.update game status message
+                    const newStatusMessage = getGameStatusMessage(gameFieldData);
+
+                    if (viewElements.gameStatus.innerHTML != newStatusMessage) {
+                        console.log("new game status:" + newStatusMessage);
+                        viewElements.gameStatus.innerHTML = newStatusMessage;
+                        console.log(viewElements.gameStatus.innerHTML);
+                    }
+
+                    //2. update button visibility
+                    let newBtLabel = "Na označovanie";
+                    if (gameFieldData.marking) {
+                        newBtLabel = "Na otváranie";
+                    }
+                    if (viewElements.btToOpenOrMark.innerHTML != newBtLabel) {
+                        viewElements.btToOpenOrMark.innerHTML = newBtLabel;
+                    }
+
+                    //3. update Minesweeper game field
+                    renderGameField(gameFieldData, viewElements);
+
+                    //4. update best scores after the game ended
+                    if (gameFieldData.justFinished) {
+                        fetchAndRenderBestScores("/api/score/minesweeper", viewElements);
+                        divRatingForm.style.visibility = 'visible';
+                    } else {
+                        divRatingForm.style.visibility = 'hidden';
+                    }
+                })
+                .catch(error => { ////here we process all the failed promises
+                    errorMessage = "Nepodarilo sa získať alebo zobraziť herné pole so servera. Podrobnosti: " + error;
+                    // console.log(errorMessage);
+                    viewElements.minesweeperField.innerHTML = errorMessage;
+                });
+        }
+
+        //--------------------------------------
+        function renderComments(comments, elements) {
+            const rowCount = comments.length;
+            let htmlToRender = "";
+
+            for (row = 0; row < rowCount; row++) {
+                htmlToRender +=
+                    `<tr>
+                        <td>${comments[row].username}</td>
+                        <td>${comments[row].comment}</td>
+                        <td>${comments[row].commentedon}</td>
+                    </tr>`;
+            }
+
+            elements.comments.innerHTML = htmlToRender;
+        }
+
+        function renderRating(rating, viewElements) {
+            viewElements.averageRating.innerHTML = rating;
+        }
+
+        function renderBestScores(bestScoresData, viewElements) {
+            let html2Render = "";
+            const rowCount = bestScoresData.length;
+
+            for (row = 0; row < rowCount; row++) {
+                html2Render +=
+                    `<tr>
+                   <td>
+                       ${row + 1}
+                   </td>
+                   <td>
+                       ${bestScoresData[row].username}
+                   </td>
+                   <td>
+                       ${bestScoresData[row].points}
+                   </td>
+                   <td>
+                       ${bestScoresData[row].playedOn}
+                   </td>
+                </tr>
+               `;
+            }
+            viewElements.scoresTableBody.innerHTML = html2Render;
+        }
+
+        function renderGameField(gameFieldData, viewElements) {
+
+            let html2Render = "<table class='minefield'>\n";
+
+            for (row = 0; row < gameFieldData.rowCount; row++) {
+                html2Render += " <tr>\n";
+                for (col = 0; col < gameFieldData.columnCount; col++) {
+
+                    let onClickHandling = "";
+
+                    if (gameFieldData.state == "PLAYING") {
+                        onClickHandling = `onclick='processTileClick(${row},${col})'`;
+                    }
+
+                    html2Render +=
+                        `<td class='${getTileClass(gameFieldData.tiles[row][col])}' ${onClickHandling}>
+                      <span>
+                          ${getTileText(gameFieldData.tiles[row][col])}
+                      </span>
+                    </td>`;
+
+                }
+                html2Render += " </tr>\n";
+            }
+            html2Render += " <tr>\n";
+
+            html2Render += "</table>\n";
+
+            viewElements.minesweeperField.innerHTML = html2Render;
+        }
+
+        //--------------------------------------
+
+        function getTileText(tile) {
+            switch (tile.state) {
+                case "CLOSED":
+                    return "-";
+                case "MARKED":
+                    return "M";
+                case "OPEN":
+                    if (tile.value != undefined) {
+                        return "" + tile.value;
+                    } else {
+                        return "X";
+                    }
+                default:
+                    return "?";
+            }
+        }
+
+        function getTileClass(tile) {
+            switch (tile.state) {
+                case "CLOSED":
+                    return "closed";
+                case "MARKED":
+                    return "marked";
+                case "OPEN":
+                    if (tile.value != undefined) {
+                        return "open" + tile.value;
+                    } else {
+                        return "mine";
+                    }
+                default:
+                    return "unknown";
+            }
+        }
+
+        function getGameStatusMessage(gameFieldData) {
+            let gameStatus = "";
+            if (gameFieldData.state == "FAILED") {
+                gameStatus = "Prehral si";
+            } else if (gameFieldData.state == "SOLVED") {
+                gameStatus = "Vyhral si (skóre: " + gameFieldData.score + ")";
+            } else {
+                gameStatus = "Hráš a ";
+                if (gameFieldData.marking) {
+                    gameStatus += "označuješ";
+                } else {
+                    gameStatus += "otváraš";
+                }
+            }
+
+            return gameStatus;
+        }
+    </script>
+
+
+</main>
+
+</body>
+</html>
