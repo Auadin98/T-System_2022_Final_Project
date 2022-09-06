@@ -1,6 +1,6 @@
 package sk.tsystem.coronastudio.entity;
 
-import sk.tsystem.coronastudio.entity.timeentity.DistrictHospitalBeds;
+import sk.tsystem.coronastudio.entity.timeentity.DistrictHospitalBed;
 
 import javax.persistence.*;
 import java.util.List;
@@ -22,7 +22,7 @@ public class District {
     private List<Hospital> hospital;
 
     @OneToMany(mappedBy = "id")
-    private List<DistrictHospitalBeds> districtHospitalBeds;
+    private List<DistrictHospitalBed> districtHospitalBeds;
 
     @ManyToOne
     @JoinColumn(name="region.id", nullable = false)

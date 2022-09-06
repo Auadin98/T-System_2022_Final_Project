@@ -1,31 +1,24 @@
 package sk.tsystem.coronastudio.entity.timeentity;
 
-import sk.tsystem.coronastudio.entity.District;
-
 import javax.persistence.*;
 import java.util.Date;
 
-@Entity
-public class DistrictHospitalBeds {
+public class SlovakiaHospitalBed {
 
-
-    @Column(length = 128)
+    @Column()
     private Date oldest_reported_at;
 
-    @Column(length = 128)
+    @Column()
     private Date newest_reported_at;
 
-    @Column(length = 128)
-    private Date published_on;
 
-    @ManyToOne
-    @JoinColumn(name = "district.id", nullable = false)
-    private District district;
+
+    @Column()
+    private Date published_on;
 
     @Id
     @GeneratedValue
     private long id;
-
 
     @Column(length = 128)
     private int capacity_all;
@@ -43,17 +36,18 @@ public class DistrictHospitalBeds {
     private int occupied_oaim_covid;
 
     @Column(length = 128)
-    private int occupied_o2_covid;
+    private  int occupied_o2_covid;
+
     @Column(length = 128)
     private int occupied_other_covid;
+
     @Column(length = 128)
     private Date updated_at;
 
-    public DistrictHospitalBeds(){
+    public SlovakiaHospitalBed(){
 
     }
-
-    public DistrictHospitalBeds(Date oldest_reported_at, Date newest_reported_at, Date published_on, int capacity_all, int free_all, int capacity_covid, int occupied_jis_covid, int occupied_oaim_covid, int occupied_o2_covid, int occupied_other_covid, Date updated_at) {
+    public SlovakiaHospitalBed(Date oldest_reported_at, Date newest_reported_at, Date published_on, int capacity_all, int free_all, int capacity_covid, int occupied_jis_covid, int occupied_oaim_covid, int occupied_o2_covid, int occupied_other_covid, Date updated_at) {
         this.oldest_reported_at = oldest_reported_at;
         this.newest_reported_at = newest_reported_at;
         this.published_on = published_on;
@@ -89,14 +83,6 @@ public class DistrictHospitalBeds {
 
     public void setPublished_on(Date published_on) {
         this.published_on = published_on;
-    }
-
-    public District getDistrict() {
-        return district;
-    }
-
-    public void setDistrict(District district) {
-        this.district = district;
     }
 
     public long getId() {

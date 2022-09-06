@@ -1,7 +1,6 @@
 package sk.tsystem.coronastudio.entity;
 
-import sk.tsystem.coronastudio.entity.timeentity.DistrictHospitalBeds;
-import sk.tsystem.coronastudio.entity.timeentity.RegionHospitalBeds;
+import sk.tsystem.coronastudio.entity.timeentity.RegionHospitalBed;
 
 import javax.persistence.*;
 import java.util.List;
@@ -23,7 +22,7 @@ public class Region {
     private String abbreviation;
 
     @OneToMany(mappedBy = "id")
-    private List<RegionHospitalBeds> regionHospitalBeds;
+    private List<RegionHospitalBed> regionHospitalBeds;
 
     @OneToMany(mappedBy = "id")
     private List<District> districts;

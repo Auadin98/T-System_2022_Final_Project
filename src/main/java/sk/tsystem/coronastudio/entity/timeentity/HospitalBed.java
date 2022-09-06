@@ -1,25 +1,30 @@
 package sk.tsystem.coronastudio.entity.timeentity;
 
+import sk.tsystem.coronastudio.entity.Hospital;
+
 import javax.persistence.*;
-import javax.swing.plaf.synth.Region;
 import java.util.Date;
 
-public class SlovakiaHospitalBeds {
-
-    @Column()
-    private Date oldest_reported_at;
-
-    @Column()
-    private Date newest_reported_at;
-
-
-
-    @Column()
-    private Date published_on;
+public class HospitalBed {
 
     @Id
     @GeneratedValue
     private long id;
+
+    @ManyToOne
+    @JoinColumn(name = "hospital.id", nullable = false)
+    private Hospital hospital;
+
+    @Column(length = 128)
+    private Date reported_at;
+
+    @Column(length = 128)
+    private Date updated_at;
+
+    @Column(length = 128)
+    private Date published_on;
+
+
 
     @Column(length = 128)
     private int capacity_all;
@@ -42,48 +47,8 @@ public class SlovakiaHospitalBeds {
     @Column(length = 128)
     private int occupied_other_covid;
 
-    @Column(length = 128)
-    private Date updated_at;
+    public HospitalBed(){
 
-    public SlovakiaHospitalBeds(){
-
-    }
-    public SlovakiaHospitalBeds(Date oldest_reported_at, Date newest_reported_at, Date published_on, int capacity_all, int free_all, int capacity_covid, int occupied_jis_covid, int occupied_oaim_covid, int occupied_o2_covid, int occupied_other_covid, Date updated_at) {
-        this.oldest_reported_at = oldest_reported_at;
-        this.newest_reported_at = newest_reported_at;
-        this.published_on = published_on;
-        this.capacity_all = capacity_all;
-        this.free_all = free_all;
-        this.capacity_covid = capacity_covid;
-        this.occupied_jis_covid = occupied_jis_covid;
-        this.occupied_oaim_covid = occupied_oaim_covid;
-        this.occupied_o2_covid = occupied_o2_covid;
-        this.occupied_other_covid = occupied_other_covid;
-        this.updated_at = updated_at;
-    }
-
-    public Date getOldest_reported_at() {
-        return oldest_reported_at;
-    }
-
-    public void setOldest_reported_at(Date oldest_reported_at) {
-        this.oldest_reported_at = oldest_reported_at;
-    }
-
-    public Date getNewest_reported_at() {
-        return newest_reported_at;
-    }
-
-    public void setNewest_reported_at(Date newest_reported_at) {
-        this.newest_reported_at = newest_reported_at;
-    }
-
-    public Date getPublished_on() {
-        return published_on;
-    }
-
-    public void setPublished_on(Date published_on) {
-        this.published_on = published_on;
     }
 
     public long getId() {
@@ -92,6 +57,30 @@ public class SlovakiaHospitalBeds {
 
     public void setId(long id) {
         this.id = id;
+    }
+
+    public Date getReported_at() {
+        return reported_at;
+    }
+
+    public void setReported_at(Date reported_at) {
+        this.reported_at = reported_at;
+    }
+
+    public Date getUpdated_at() {
+        return updated_at;
+    }
+
+    public void setUpdated_at(Date updated_at) {
+        this.updated_at = updated_at;
+    }
+
+    public Date getPublished_on() {
+        return published_on;
+    }
+
+    public void setPublished_on(Date published_on) {
+        this.published_on = published_on;
     }
 
     public int getCapacity_all() {
@@ -150,11 +139,17 @@ public class SlovakiaHospitalBeds {
         this.occupied_other_covid = occupied_other_covid;
     }
 
-    public Date getUpdated_at() {
-        return updated_at;
-    }
-
-    public void setUpdated_at(Date updated_at) {
+    public HospitalBed(long id, Date reported_at, Date updated_at, Date published_on, int capacity_all, int free_all, int capacity_covid, int occupied_jis_covid, int occupied_oaim_covid, int occupied_o2_covid, int occupied_other_covid) {
+        this.id = id;
+        this.reported_at = reported_at;
         this.updated_at = updated_at;
+        this.published_on = published_on;
+        this.capacity_all = capacity_all;
+        this.free_all = free_all;
+        this.capacity_covid = capacity_covid;
+        this.occupied_jis_covid = occupied_jis_covid;
+        this.occupied_oaim_covid = occupied_oaim_covid;
+        this.occupied_o2_covid = occupied_o2_covid;
+        this.occupied_other_covid = occupied_other_covid;
     }
 }

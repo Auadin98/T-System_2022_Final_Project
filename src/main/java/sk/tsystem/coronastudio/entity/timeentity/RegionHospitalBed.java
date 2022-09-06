@@ -5,10 +5,9 @@ import sk.tsystem.coronastudio.entity.Region;
 import javax.persistence.*;
 
 import java.util.Date;
-import java.util.List;
 
 @Entity
-public class RegionHospitalBeds {
+public class RegionHospitalBed {
     @Column(length = 128)
     private Date oldest_reported_at;
 

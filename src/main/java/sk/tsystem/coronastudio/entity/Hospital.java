@@ -1,7 +1,6 @@
 package sk.tsystem.coronastudio.entity;
 
-import sk.tsystem.coronastudio.entity.timeentity.DistrictHospitalBeds;
-import sk.tsystem.coronastudio.entity.timeentity.RegionHospitalBeds;
+import sk.tsystem.coronastudio.entity.timeentity.RegionHospitalBed;
 
 import javax.persistence.*;
 import java.util.List;
@@ -19,7 +18,7 @@ public class Hospital {
     private String code;
 
     @OneToMany(mappedBy = "id")
-    private List<RegionHospitalBeds> regionHospitalBeds;
+    private List<RegionHospitalBed> regionHospitalBeds;
     @ManyToOne
     @JoinColumn(name="City.id", nullable = false)
     private City city;
