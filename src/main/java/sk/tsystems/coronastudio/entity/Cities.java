@@ -1,4 +1,4 @@
-package entity;
+package sk.tsystems.coronastudio.entity;
 
 import javax.persistence.*;
 import java.io.Serializable;
@@ -20,6 +20,9 @@ public class Cities implements Serializable {
     @ManyToOne
     @JoinColumn(name = "Districts.ident", nullable = false)
     private Districts districts;
+
+    @OneToMany(mappedBy = "ident")
+    private List<Hospitals> hospitals;
 
     public Cities(){}
 

@@ -1,4 +1,6 @@
-package entity;
+package sk.tsystems.coronastudio.entity;
+
+import sk.tsystems.coronastudio.entity.hospitalBeds.DistrictHospitalBeds;
 
 import javax.persistence.*;
 import java.io.Serializable;
@@ -20,6 +22,12 @@ public class Districts implements Serializable {
     @ManyToOne
     @JoinColumn(name = "Regions.ident", nullable = false)
     private Regions regions;
+
+    @OneToMany(mappedBy = "ident")
+    private List<Cities> cities;
+
+    @OneToMany(mappedBy = "ident")
+    private List<DistrictHospitalBeds> districtHospitalBeds;
 
     public Districts(){}
 

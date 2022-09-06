@@ -1,6 +1,6 @@
-package entity.hospitalBeds;
+package sk.tsystems.coronastudio.entity.hospitalBeds;
 
-import entity.Hospitals;
+import sk.tsystems.coronastudio.entity.Hospitals;
 
 import javax.persistence.*;
 import java.io.Serializable;

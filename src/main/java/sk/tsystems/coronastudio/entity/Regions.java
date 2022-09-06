@@ -1,10 +1,13 @@
-package entity;
+package sk.tsystems.coronastudio.entity;
 
-import javax.persistence.Column;
-import javax.persistence.Entity;
-import javax.persistence.GeneratedValue;
-import javax.persistence.Id;
+import sk.tsystems.coronastudio.entity.Districts;
+import sk.tsystems.coronastudio.entity.hospitalBeds.RegionHospitalBeds;
+import sk.tsystems.coronastudio.entity.vaccinations.RegionVaccinations;
+import sk.tsystems.coronastudio.entity.vaccinations.Vaccinations;
+
+import javax.persistence.*;
 import java.io.Serializable;
+import java.util.List;
 
 @Entity
 public class Regions implements Serializable {
@@ -21,6 +24,18 @@ public class Regions implements Serializable {
 
     @Column(nullable = false)
     private String Abbreviation;
+
+    @OneToMany(mappedBy = "ident")
+    private List<Districts> districts;
+
+    @OneToMany(mappedBy = "ident")
+    private List<Vaccinations> vaccinations;
+
+    @OneToMany(mappedBy = "ident")
+    private List<RegionVaccinations> regionVaccinations;
+
+    @OneToMany(mappedBy = "ident")
+    private List<RegionHospitalBeds> regionHospitalBeds;
 
     public Regions(){}
 

@@ -1,14 +1,13 @@
-package entity.vaccinations;
+package sk.tsystems.coronastudio.entity.vaccinations;
 
-import entity.Regions;
-import entity.Vaccines;
+import sk.tsystems.coronastudio.entity.Regions;
 
 import javax.persistence.*;
 import java.io.Serializable;
 import java.util.Date;
 
 @Entity
-public class Vaccinations implements Serializable {
+public class RegionVaccinations implements Serializable {
 
     @Id
     @GeneratedValue
@@ -20,25 +19,38 @@ public class Vaccinations implements Serializable {
     @Column(nullable = false)
     private int dose2_count;
 
+    @Column(nullable = false)
+    private int dose1_sum;
+
+    @Column(nullable = false)
+    private int dose2_sum;
+
     private Date updated_at;
 
     private Date published_on;
 
     @ManyToOne
-    @JoinColumn(name = "Vaccines.ident", nullable = false)
-    private Vaccines vaccines;
-
-    @ManyToOne
     @JoinColumn(name = "Regions.ident", nullable = false)
     private Regions regions;
 
-    public Vaccinations(){}
+    public RegionVaccinations(){}
 
-    public Vaccinations(int dose1_count, int dose2_count, Date updated_at, Date published_on) {
+    public RegionVaccinations(int dose1_count, int dose2_count, int dose1_sum, int dose2_sum,
+                              Date updated_at, Date published_on) {
         this.dose1_count = dose1_count;
         this.dose2_count = dose2_count;
+        this.dose1_sum = dose1_sum;
+        this.dose2_sum = dose2_sum;
         this.updated_at = updated_at;
         this.published_on = published_on;
+    }
+
+    public long getIdent() {
+        return ident;
+    }
+
+    public void setIdent(long ident) {
+        this.ident = ident;
     }
 
     public int getDose1_count() {
@@ -57,30 +69,31 @@ public class Vaccinations implements Serializable {
         this.dose2_count = dose2_count;
     }
 
-    public Date getUpdated_at() {
-        return updated_at;
+    public int getDose1_sum() {
+        return dose1_sum;
     }
 
-    public void setUpdated_at(Date updated_at) {
-        this.updated_at = updated_at;
+    public void setDose1_sum(int dose1_sum) {
+        this.dose1_sum = dose1_sum;
     }
 
-    public Date getPublished_on() {
-        return published_on;
+    public int getDose2_sum() {
+        return dose2_sum;
     }
 
-    public void setPublished_on(Date published_on) {
-        this.published_on = published_on;
+    public void setDose2_sum(int dose2_sum) {
+        this.dose2_sum = dose2_sum;
     }
 
     @Override
     public String toString() {
-        return "Vaccinations{" +
+        return "RegionVaccinations{" +
                 "dose1_count=" + dose1_count +
                 ", dose2_count=" + dose2_count +
+                ", dose1_sum=" + dose1_sum +
+                ", dose2_sum=" + dose2_sum +
                 ", updated_at=" + updated_at +
                 ", published_on=" + published_on +
-                ", vaccines=" + vaccines +
                 ", regions=" + regions +
                 '}';
     }

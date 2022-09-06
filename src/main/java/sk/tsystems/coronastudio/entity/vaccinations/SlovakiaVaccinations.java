@@ -1,4 +1,4 @@
-package entity.vaccinations;
+package sk.tsystems.coronastudio.entity.vaccinations;
 
 import javax.persistence.*;
 import java.io.Serializable;
