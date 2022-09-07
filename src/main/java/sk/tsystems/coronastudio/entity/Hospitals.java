@@ -13,8 +13,7 @@ import java.util.List;
 public class Hospitals implements Serializable{
 
     @Id
-    @GeneratedValue
-    private long ident;
+    private long id;
 
     @Column(nullable = false)
     private String title;
@@ -23,7 +22,7 @@ public class Hospitals implements Serializable{
     private String code;
 
     @ManyToOne
-    @JoinColumn(name = "Cities.ident", nullable = false)
+    @JoinColumn(name = "Cities.id", nullable = false)
     private Cities cities;
 
     @OneToMany(mappedBy = "ident")
@@ -34,9 +33,11 @@ public class Hospitals implements Serializable{
 
     public Hospitals(){}
 
-    public Hospitals(String title, String code) {
+    public Hospitals(long id, String title, String code, Cities cities) {
+        this.id = id;
         this.title = title;
         this.code = code;
+        this.cities = cities;
     }
 
     @Override

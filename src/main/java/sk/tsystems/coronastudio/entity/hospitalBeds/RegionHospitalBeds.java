@@ -9,8 +9,7 @@ import java.util.Date;
 @Entity
 public class RegionHospitalBeds implements Serializable {
     @Id
-    @GeneratedValue
-    private long ident;
+    private long id;
 
     private Date oldest_reported_at;
 
@@ -19,7 +18,7 @@ public class RegionHospitalBeds implements Serializable {
     private Date published_on;
 
     @ManyToOne
-    @JoinColumn(name = "Regions.ident", nullable = false)
+    @JoinColumn(name = "Regions.id", nullable = false)
     private Regions regions;
 
     @Column(nullable = false)
@@ -62,14 +61,6 @@ public class RegionHospitalBeds implements Serializable {
         this.occupied_o2_covid = occupied_o2_covid;
         this.occupied_other_covid = occupied_other_covid;
         this.updated_at = updated_at;
-    }
-
-    public long getIdent() {
-        return ident;
-    }
-
-    public void setIdent(long ident) {
-        this.ident = ident;
     }
 
     public int getCapacity_all() {

@@ -7,8 +7,7 @@ import java.util.Date;
 @Entity
 public class SlovakiaHospitalBeds implements Serializable {
     @Id
-    @GeneratedValue
-    private long ident;
+    private long id;
 
     private Date oldest_reported_at;
 
@@ -41,9 +40,10 @@ public class SlovakiaHospitalBeds implements Serializable {
 
     public SlovakiaHospitalBeds(){}
 
-    public SlovakiaHospitalBeds(Date oldest_reported_at, Date newest_reported_at, Date published_on,
+    public SlovakiaHospitalBeds(long id, Date oldest_reported_at, Date newest_reported_at, Date published_on,
                                 int capacity_all, int free_all, int capacity_covid, int occupied_jis_covid,
                                 int occupied_oaim_covid, int occupied_o2_covid, int occupied_other_covid, Date updated_at) {
+        this.id = id;
         this.oldest_reported_at = oldest_reported_at;
         this.newest_reported_at = newest_reported_at;
         this.published_on = published_on;
@@ -55,70 +55,6 @@ public class SlovakiaHospitalBeds implements Serializable {
         this.occupied_o2_covid = occupied_o2_covid;
         this.occupied_other_covid = occupied_other_covid;
         this.updated_at = updated_at;
-    }
-
-    public long getIdent() {
-        return ident;
-    }
-
-    public void setIdent(long ident) {
-        this.ident = ident;
-    }
-
-    public int getCapacity_all() {
-        return capacity_all;
-    }
-
-    public void setCapacity_all(int capacity_all) {
-        this.capacity_all = capacity_all;
-    }
-
-    public int getFree_all() {
-        return free_all;
-    }
-
-    public void setFree_all(int free_all) {
-        this.free_all = free_all;
-    }
-
-    public int getCapacity_covid() {
-        return capacity_covid;
-    }
-
-    public void setCapacity_covid(int capacity_covid) {
-        this.capacity_covid = capacity_covid;
-    }
-
-    public int getOccupied_jis_covid() {
-        return occupied_jis_covid;
-    }
-
-    public void setOccupied_jis_covid(int occupied_jis_covid) {
-        this.occupied_jis_covid = occupied_jis_covid;
-    }
-
-    public int getOccupied_oaim_covid() {
-        return occupied_oaim_covid;
-    }
-
-    public void setOccupied_oaim_covid(int occupied_oaim_covid) {
-        this.occupied_oaim_covid = occupied_oaim_covid;
-    }
-
-    public int getOccupied_o2_covid() {
-        return occupied_o2_covid;
-    }
-
-    public void setOccupied_o2_covid(int occupied_o2_covid) {
-        this.occupied_o2_covid = occupied_o2_covid;
-    }
-
-    public int getOccupied_other_covid() {
-        return occupied_other_covid;
-    }
-
-    public void setOccupied_other_covid(int occupied_other_covid) {
-        this.occupied_other_covid = occupied_other_covid;
     }
 
     @Override

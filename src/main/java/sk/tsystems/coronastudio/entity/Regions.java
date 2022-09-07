@@ -13,8 +13,7 @@ import java.util.List;
 public class Regions implements Serializable {
 
     @Id
-    @GeneratedValue
-    private long ident;
+    private long id;
 
     @Column(nullable = false)
     private String title;
@@ -25,21 +24,22 @@ public class Regions implements Serializable {
     @Column(nullable = false)
     private String Abbreviation;
 
-    @OneToMany(mappedBy = "ident")
+    @OneToMany(mappedBy = "id")
     private List<Districts> districts;
 
-    @OneToMany(mappedBy = "ident")
+    @OneToMany(mappedBy = "id")
     private List<Vaccinations> vaccinations;
 
     @OneToMany(mappedBy = "ident")
     private List<RegionVaccinations> regionVaccinations;
 
-    @OneToMany(mappedBy = "ident")
+    @OneToMany(mappedBy = "id")
     private List<RegionHospitalBeds> regionHospitalBeds;
 
     public Regions(){}
 
-    public Regions(String title, String code, String abbreviation) {
+    public Regions(long id, String title, String code, String abbreviation) {
+        this.id = id;
         this.title = title;
         this.code = code;
         Abbreviation = abbreviation;

@@ -10,8 +10,7 @@ import java.util.List;
 public class Districts implements Serializable {
 
     @Id
-    @GeneratedValue
-    private long ident;
+    private long id;
 
     @Column(nullable = false)
     private String title;
@@ -20,10 +19,10 @@ public class Districts implements Serializable {
     private String code;
 
     @ManyToOne
-    @JoinColumn(name = "Regions.ident", nullable = false)
+    @JoinColumn(name = "Regions.id", nullable = false)
     private Regions regions;
 
-    @OneToMany(mappedBy = "ident")
+    @OneToMany(mappedBy = "id")
     private List<Cities> cities;
 
     @OneToMany(mappedBy = "ident")
@@ -31,9 +30,11 @@ public class Districts implements Serializable {
 
     public Districts(){}
 
-    public Districts(String title, String code) {
+    public Districts(long id, String title, String code, Regions regions) {
+        this.id = id;
         this.title = title;
         this.code = code;
+        this.regions = regions;
     }
 
     @Override

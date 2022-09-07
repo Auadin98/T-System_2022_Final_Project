@@ -10,8 +10,7 @@ import java.util.List;
 public class Vaccines implements Serializable {
 
     @Id
-    @GeneratedValue
-    private long ident;
+    private long id;
 
     @Column(nullable = false)
     private String title;
@@ -23,7 +22,9 @@ public class Vaccines implements Serializable {
     private List<Vaccinations> vaccinations;
 
     public Vaccines(){}
-    public Vaccines(String title, String manufacturer) {
+
+    public Vaccines(long id, String title, String manufacturer) {
+        this.id = id;
         this.title = title;
         this.manufacturer = manufacturer;
     }

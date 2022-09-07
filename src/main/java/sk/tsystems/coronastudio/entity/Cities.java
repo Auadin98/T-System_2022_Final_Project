@@ -8,8 +8,7 @@ import java.util.List;
 public class Cities implements Serializable {
 
     @Id
-    @GeneratedValue
-    private long ident;
+    private int id;
 
     @Column(nullable = false)
     private String title;
@@ -18,17 +17,19 @@ public class Cities implements Serializable {
     private String code;
 
     @ManyToOne
-    @JoinColumn(name = "Districts.ident", nullable = false)
+    @JoinColumn(name = "Districts.id", nullable = false)
     private Districts districts;
 
-    @OneToMany(mappedBy = "ident")
+    @OneToMany(mappedBy = "id")
     private List<Hospitals> hospitals;
 
     public Cities(){}
 
-    public Cities(String title, String code) {
+    public Cities(int id, String title, String code, Districts districts) {
+        this.id = id;
         this.title = title;
         this.code = code;
+        this.districts = districts;
     }
 
     @Override
