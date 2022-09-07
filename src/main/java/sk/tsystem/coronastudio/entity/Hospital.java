@@ -8,7 +8,6 @@ import java.util.List;
 @Entity
 public class Hospital {
     @Id
-    @GeneratedValue
     private long id;
 
     @Column(nullable = false, length = 128)
@@ -20,13 +19,18 @@ public class Hospital {
     @OneToMany(mappedBy = "id")
     private List<RegionHospitalBed> regionHospitalBeds;
     @ManyToOne
-    @JoinColumn(name="City.id", nullable = false)
+    @JoinColumn(name = "City.id", nullable = false)
     private City city;
 
+    public Hospital() {
 
-    public Hospital(String hospital, String code) {
+    }
+
+
+    public Hospital(long id,String hospital, String code) {
         this.hospital = hospital;
         this.code = code;
+        this.id = id;
     }
 
     public String getHospital() {

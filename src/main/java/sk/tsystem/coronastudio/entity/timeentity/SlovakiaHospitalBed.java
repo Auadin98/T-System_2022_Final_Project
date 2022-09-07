@@ -2,7 +2,7 @@ package sk.tsystem.coronastudio.entity.timeentity;
 
 import javax.persistence.*;
 import java.util.Date;
-
+@Entity
 public class SlovakiaHospitalBed {
 
     @Column()
@@ -17,7 +17,6 @@ public class SlovakiaHospitalBed {
     private Date published_on;
 
     @Id
-    @GeneratedValue
     private long id;
 
     @Column(length = 128)

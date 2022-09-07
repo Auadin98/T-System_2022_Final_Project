@@ -22,7 +22,6 @@ public class RegionHospitalBed {
     private Region region;
 
     @Id
-    @GeneratedValue
     private long id;
 
     @Column(length = 128)

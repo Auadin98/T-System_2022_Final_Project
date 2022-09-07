@@ -7,7 +7,6 @@ import java.util.List;
 public class VaccinationContacts {
 
     @Id
-    @GeneratedValue
     private long id;
 
 

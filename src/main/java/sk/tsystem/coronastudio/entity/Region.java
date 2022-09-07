@@ -8,12 +8,11 @@ import java.util.List;
 @Entity
 public class Region {
     @Id
-    @GeneratedValue
     private long id;
 
 
     @Column(nullable = false, length = 128)
-    private String Region;
+    private String region;
 
     @Column(nullable = false, length = 5)
     private String code;
@@ -33,7 +32,7 @@ public class Region {
 
     public Region(long id, String region, String code, String abbreviation) {
         this.id = id;
-        Region = region;
+        this.region = region;
         this.code = code;
         this.abbreviation = abbreviation;
     }
@@ -46,12 +45,13 @@ public class Region {
         this.id = id;
     }
 
+
     public String getRegion() {
-        return Region;
+        return region;
     }
 
     public void setRegion(String region) {
-        Region = region;
+        this.region = region;
     }
 
     public String getCode() {

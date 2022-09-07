@@ -8,7 +8,6 @@ import java.util.Date;
 public class HospitalBed {
 
     @Id
-    @GeneratedValue
     private long id;
 
     @ManyToOne

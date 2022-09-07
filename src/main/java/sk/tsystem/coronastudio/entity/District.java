@@ -8,7 +8,6 @@ import java.util.List;
 public class District {
 
     @Id
-    @GeneratedValue
     private long id;
 
 
@@ -32,9 +31,28 @@ public class District {
     public District(){
 
     }
-    public District(String district, String code) {
+
+    public District(long id, String district, String code, Region region) {
+        this.id = id;
         this.district = district;
         this.code = code;
+        this.region = region;
+    }
+
+    public Region getRegion() {
+        return region;
+    }
+
+    public void setRegion(Region region) {
+        this.region = region;
+    }
+
+    public long getId() {
+        return id;
+    }
+
+    public void setId(long id) {
+        this.id = id;
     }
 
     public String getDistrict() {

@@ -23,7 +23,6 @@ public class DistrictHospitalBed {
     private District district;
 
     @Id
-    @GeneratedValue
     private long id;
 
 

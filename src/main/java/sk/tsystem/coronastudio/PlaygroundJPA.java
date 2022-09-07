@@ -1,15 +1,13 @@
 package sk.tsystem.coronastudio;
 
 
-
-
-
-
-
 import org.json.simple.JSONArray;
 import org.json.simple.JSONObject;
 import org.json.simple.parser.JSONParser;
 import org.springframework.beans.factory.annotation.Autowired;
+import sk.tsystem.coronastudio.entity.District;
+import sk.tsystem.coronastudio.entity.Hospital;
+import sk.tsystem.coronastudio.entity.Region;
 import sk.tsystem.coronastudio.services.*;
 
 
@@ -20,6 +18,7 @@ import java.io.BufferedReader;
 import java.io.InputStreamReader;
 import java.net.HttpURLConnection;
 import java.net.URL;
+import java.text.Format;
 import java.util.Scanner;
 
 @Transactional
@@ -27,90 +26,192 @@ public class PlaygroundJPA {
     BufferedReader input = new BufferedReader(new InputStreamReader(System.in));
     @PersistenceContext
     private EntityManager entityManager;
-    @Autowired
-    CityService cityService;
+//    @Autowired
+//    CityService cityService;
 
     @Autowired
     HospitalService hospitalService;
 
     @Autowired
-    DistrictService districtService;
-
-
-    @Autowired
     RegionService regionService;
 
     @Autowired
-    DistrictHospitalBedService districtHospitalBedService;
+    DistrictService districtService;
+//
+//
+//    @Autowired
+//    RegionService regionService;
+//
+//    @Autowired
+//    DistrictHospitalBedService districtHospitalBedService;
+//
+//
+//    @Autowired
+//    SlovakiaHospitalBedService slovakiaHospitalBedService;
 
 
-    @Autowired
-    SlovakiaHospitalBedService slovakiaHospitalBedService;
+    private String urlRegion = "https://data.korona.gov.sk/api/regions";
+    private String urlDistrict = "https://data.korona.gov.sk/api/districts";
+    private String urlRegionHospitalBeds = "https://data.korona.gov.sk/api/hospitals-beds/by-region";
+    private String urlCities = "https://data.korona.gov.sk/api/cities";
+    private String urlDistrictHospitalBeds = "https://data.korona.gov.sk/api/hospitals-beds/by-district";
+    private String urlHospitals = "https://data.korona.gov.sk/api/hospitals";
+    private String urlHospitalBeds = "https://data.korona.gov.sk/api/hospitals-beds";
+    private String urlSlovakiaHospitalBeds = "https://data.korona.gov.sk/api/hospital-beds/in-slovakia";
+    private String urlVacinationContacs = "https://data.korona.gov.sk/api/vaccination/contacts";
 
-    public static void main(String[] args) {
+    public void regionUpdateAPI() {
         try {
-            URL url= new URL("https://data.korona.gov.sk/api/hospitals");
-
-            HttpURLConnection conn = (HttpURLConnection) url.openConnection();
-            conn.setRequestMethod("GET");
-            conn.connect();
-
-            int responseCode = conn.getResponseCode();
-
-            if(responseCode !=200){
-                throw new RuntimeException("HttpResponseCode: "+responseCode );}
-            else {
+            URL url1 = new URL(urlRegion);
+            HttpURLConnection conn1 = (HttpURLConnection) url1.openConnection();
+            conn1.setRequestMethod("GET");
+            conn1.connect();
+            int responseCode = conn1.getResponseCode();
+            if (responseCode != 200) {
+                throw new RuntimeException("HttpResponseCode: " + responseCode);
+            } else {
                 StringBuilder informacionString = new StringBuilder();
-                Scanner scanner = new Scanner(url.openStream());
+                Scanner scanner = new Scanner(url1.openStream());
 
-                while   (scanner.hasNext()){
+                while (scanner.hasNext()) {
                     informacionString.append(scanner.nextLine());
                 }
                 scanner.close();
-                System.out.println(informacionString);
-
                 JSONParser parses = new JSONParser();
                 JSONArray dataObject = (JSONArray) parses.parse(String.valueOf(informacionString));
 
-                System.out.println(dataObject.get(0));
+                String code, title, abbreviation;
+                long id;
+                for (int i = 0; i < dataObject.size(); i++) {
 
-                JSONObject countryData =(JSONObject) dataObject.get(0);
+                    JSONObject jSonData = (JSONObject) dataObject.get(i);
+                    id = (long) jSonData.get("id");
+                    code = (String) jSonData.get("code");
+                    title = (String) jSonData.get("title");
+                    abbreviation = (String) jSonData.get("abbreviation");
 
-                System.out.println(countryData.get("location_type"));
+                    regionService.addRegion(new Region(id, title, code, abbreviation));
+                    System.out.println(dataObject.get(i));
+                }
             }
-        }catch (Exception e){
+        } catch (Exception e) {
 
         }
     }
 
-//    private static String readAll(Reader rd) throws IOException {
-//        StringBuilder sb = new StringBuilder();
-//        int cp;
-//        while ((cp = rd.read()) != -1) {
-//            sb.append((char) cp);
-//        }
-//        return sb.toString();
-//    }
+    public void districtUpdateAPI() {
+        try {
+            URL url2 = new URL(urlRegion);
+            HttpURLConnection conn1 = (HttpURLConnection) url2.openConnection();
+            conn1.setRequestMethod("GET");
+            conn1.connect();
+            int responseCode = conn1.getResponseCode();
+            if (responseCode != 200) {
+                throw new RuntimeException("HttpResponseCode: " + responseCode);
+            } else {
+                StringBuilder informacionString = new StringBuilder();
+                Scanner scanner = new Scanner(url2.openStream());
 
-//    public static JSONArray readJsonFromUrl(String url) throws IOException, JSONException {
-//        InputStream is = new URL(url).openStream();
-//        try {
-//            BufferedReader rd = new BufferedReader(new InputStreamReader(is, StandardCharsets.UTF_8));
-//            String jsonText = readAll(rd);
-//            return new JSONArray(jsonText);
-//        } catch (Exception e){
-//            System.out.println(e.getMessage());
-//        }
-//        return null;
-//    }
+                while (scanner.hasNext()) {
+                    informacionString.append(scanner.nextLine());
+                }
+                scanner.close();
+                JSONParser parses = new JSONParser();
+                JSONArray dataObject = (JSONArray) parses.parse(String.valueOf(informacionString));
+
+                String code, title;
+                long id,region_id;
+                for (int i = 0; i < dataObject.size(); i++) {
+
+                    JSONObject jSonData = (JSONObject) dataObject.get(i);
+                    id = (long) jSonData.get("id");
+                    code = (String) jSonData.get("code");
+                    title = (String) jSonData.get("title");
+                    region_id = (long) jSonData.get("region_id");
+
+                    districtService.addDistricts(new District(id, title, code,region_id));
+
+                }
+            }
+        } catch (Exception e) {
+
+        }
+    }
+
+
+    public void update() {
+        regionUpdateAPI();
+        districtUpdateAPI();
+
+//            try {
 //
-//    public static void main(String[] args) throws IOException, JSONException {
-//        JSONArray json = readJsonFromUrl("https://data.korona.gov.sk/api/cities");
-//        assert json != null;
-//        System.out.println(json.toString());
-//    }
+//                URL url2 = new URL(urlDistrict);
+//                URL url3 = new URL(urlRegionHospitalBeds);
+//                URL url4 = new URL(urlCities);
+//                URL url5 = new URL(urlDistrictHospitalBeds);
+//                URL url6 = new URL(urlHospitals);
+//                URL url7 = new URL(urlHospitalBeds);
+//                URL url8 = new URL(urlSlovakiaHospitalBeds);
+//                URL url9 = new URL(urlVacinationContacs);
+//
+//
+//                HttpURLConnection conn2 = (HttpURLConnection) url2.openConnection();
+//                HttpURLConnection conn3 = (HttpURLConnection) url3.openConnection();
+//                HttpURLConnection conn4 = (HttpURLConnection) url4.openConnection();
+//                HttpURLConnection conn5 = (HttpURLConnection) url5.openConnection();
+//                HttpURLConnection conn6 = (HttpURLConnection) url6.openConnection();
+//                HttpURLConnection conn7 = (HttpURLConnection) url7.openConnection();
+//                HttpURLConnection conn8 = (HttpURLConnection) url8.openConnection();
+//                HttpURLConnection conn9 = (HttpURLConnection) url9.openConnection();
+//
+//                conn1.setRequestMethod("GET");
+//                conn1.connect();
+//
+//                int responseCode = conn1.getResponseCode();
+//
+//                if (responseCode != 200) {
+//                    throw new RuntimeException("HttpResponseCode: " + responseCode);
+//                } else {
+//                    StringBuilder informacionString = new StringBuilder();
+//                    Scanner scanner = new Scanner(url1.openStream());
+//
+//                    while (scanner.hasNext()) {
+//                        informacionString.append(scanner.nextLine());
+//                    }
+//                    scanner.close();
+//                    JSONParser parses = new JSONParser();
+//                    JSONArray dataObject = (JSONArray) parses.parse(String.valueOf(informacionString));
+//
+//                    String code, title, abbreviation;
+//                    long id;
+//                    for (int i = 0; i < dataObject.size(); i++) {
+//
+//                        JSONObject jSonData = (JSONObject) dataObject.get(i);
+//                        id = (long) jSonData.get("id");
+//                        code = (String) jSonData.get("code");
+//                        title = (String) jSonData.get("title");
+//                        abbreviation = (String) jSonData.get("abbreviation");
+//
+//                        regionService.addRegion(new Region(id, title, code, abbreviation));
+//                        System.out.println(dataObject.get(i));
+//                    }
+//
+//
+////                    System.out.println(dataObject.get(1));
+//
+//
+//                    JSONObject jSonData = (JSONObject) dataObject.get(0);
+//
+//                    System.out.println(jSonData.get("code"));
+//
+//
+//                }
+//            } catch (Exception e) {
+//
+//            }
+        }
 
-
-
-}
+        public void play() {
+            update();
+        }    }
 

@@ -9,7 +9,6 @@ import javax.persistence.Id;
 public class Vaccine {
 
     @Id
-    @GeneratedValue
     private long id;
 
 

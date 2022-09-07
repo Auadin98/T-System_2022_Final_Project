@@ -6,7 +6,6 @@ import java.util.List;
 @Entity
 public class City {
     @Id
-    @GeneratedValue
     private long id;
 
 
