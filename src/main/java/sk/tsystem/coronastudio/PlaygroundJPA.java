@@ -129,7 +129,7 @@ public class PlaygroundJPA {
                     title = (String) jSonData.get("title");
                     region_id = (long) jSonData.get("region_id");
 
-                    districtService.addDistricts(new District(id, title, code,region_id));
+                    districtService.addDistricts(new District(id, title, code));
 
                 }
             }
