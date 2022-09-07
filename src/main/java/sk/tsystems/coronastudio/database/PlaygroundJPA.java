@@ -5,9 +5,19 @@ import org.json.JSONException;
 import org.json.JSONObject;
 import org.springframework.beans.factory.annotation.Autowired;
 import sk.tsystems.coronastudio.entity.*;
+import sk.tsystems.coronastudio.entity.hospitalBeds.DistrictHospitalBeds;
+import sk.tsystems.coronastudio.entity.hospitalBeds.HospitalBeds;
+import sk.tsystems.coronastudio.entity.hospitalBeds.RegionHospitalBeds;
 import sk.tsystems.coronastudio.entity.hospitalBeds.SlovakiaHospitalBeds;
+import sk.tsystems.coronastudio.entity.vaccinations.RegionVaccinations;
+import sk.tsystems.coronastudio.entity.vaccinations.SlovakiaVaccinations;
 import sk.tsystems.coronastudio.service.*;
+import sk.tsystems.coronastudio.service.hospitalBedsServices.DistrictHospitalBedsService;
+import sk.tsystems.coronastudio.service.hospitalBedsServices.HospitalBedsService;
+import sk.tsystems.coronastudio.service.hospitalBedsServices.RegionHospitalBedsService;
 import sk.tsystems.coronastudio.service.hospitalBedsServices.SlovakiaHospitalBedsService;
+import sk.tsystems.coronastudio.service.vaccinationsServices.RegionVaccinationsService;
+import sk.tsystems.coronastudio.service.vaccinationsServices.SlovakiaVaccinationsService;
 
 import javax.transaction.Transactional;
 import java.io.*;
@@ -22,25 +32,29 @@ import java.util.List;
 public class PlaygroundJPA {
     @Autowired
     private CitiesService citiesService;
-
     @Autowired
     private VaccinesService vaccinesService;
-
     @Autowired
     private RegionsService regionsService;
-
     @Autowired
     private DistrictsService districtsService;
-
     @Autowired
     private HospitalsService hospitalsService;
-
     @Autowired
     private SlovakiaHospitalBedsService slovakiaHospitalBedsService;
+    @Autowired
+    private RegionHospitalBedsService regionHospitalBedsService;
+    @Autowired
+    private DistrictHospitalBedsService districtHospitalBedsService;
+    @Autowired
+    private HospitalBedsService hospitalBedsService;
+    @Autowired
+    private SlovakiaVaccinationsService slovakiaVaccinationsService;
+    @Autowired
+    private RegionVaccinationsService regionVaccinationsService;
 
     private final String pattern = "yyyy-MM-dd HH:mm:ss";
     private final SimpleDateFormat simpleDateFormat = new SimpleDateFormat(pattern);
-
     private final String secondPattern = "yyyy-MM-dd";
     private final SimpleDateFormat secondSimpleDateFormat = new SimpleDateFormat(secondPattern);
 
@@ -227,7 +241,6 @@ public class PlaygroundJPA {
             int occupied_o2_covid = (int) codeObject.get("occupied_o2_covid");
             int occupied_other_covid = (int) codeObject.get("occupied_other_covid");
             Date updated_at = simpleDateFormat.parse(String.valueOf(codeObject.get("updated_at")));
-            ;
 
             try {
                 slovakiaHospitalBedsService.addSlovHosBeds(new SlovakiaHospitalBeds(id, oldest_reported_at, newest_reported_at,
@@ -239,19 +252,184 @@ public class PlaygroundJPA {
         }
     }
 
-    public void play() throws JSONException, IOException, ParseException {
-        slovakiaHospitalBedsService.reset();
-        hospitalsService.reset();
-        districtsService.reset();
-        citiesService.reset();
-        vaccinesService.reset();
-        regionsService.reset();
+    public void updateRegHosBedsTable() throws IOException, JSONException, ParseException {
+        JSONObject page = readJsonObjectFromUrl("https://data.korona.gov.sk/api/hospital-beds/by-region");
+        JSONArray json = page.getJSONArray("page");
+        assert json != null;
 
-        updateVaccineTable();
-        updateRegionsTable();
-        updateDistrictsTable();
-        updateCitiesTable();
-        updateHospitalsTable();
-        updateSlovHosBedsTable();
+        List<Regions> regions = regionsService.getRegions();
+
+        for (int i = 0; i < json.length(); i++) {
+            JSONObject codeObject = (JSONObject) json.get(i);
+
+            Date oldest_reported_at = simpleDateFormat.parse(String.valueOf(codeObject.get("oldest_reported_at")));
+            Date newest_reported_at = simpleDateFormat.parse(String.valueOf(codeObject.get("newest_reported_at")));
+            Date published_on = secondSimpleDateFormat.parse(String.valueOf(codeObject.get("published_on")));
+            int region_id = (int) codeObject.get("region_id");
+            long id = ((Number) codeObject.get("id")).longValue();
+            int capacity_all = (int) codeObject.get("capacity_all");
+            int free_all = (int) codeObject.get("free_all");
+            int capacity_covid = (int) codeObject.get("capacity_covid");
+            int occupied_jis_covid = (int) codeObject.get("occupied_jis_covid");
+            int occupied_oaim_covid = (int) codeObject.get("occupied_oaim_covid");
+            int occupied_o2_covid = (int) codeObject.get("occupied_o2_covid");
+            int occupied_other_covid = (int) codeObject.get("occupied_other_covid");
+            Date updated_at = simpleDateFormat.parse(String.valueOf(codeObject.get("updated_at")));
+
+            try {
+                regionHospitalBedsService.addRegHosBeds(new RegionHospitalBeds(id, oldest_reported_at, newest_reported_at,
+                        published_on, regions.get(region_id - 1), capacity_all, free_all, capacity_covid,
+                        occupied_jis_covid, occupied_oaim_covid, occupied_o2_covid, occupied_other_covid, updated_at));
+            } catch (Exception e) {
+                System.out.println(e.getMessage());
+            }
+        }
+    }
+
+    public void updateDistHosBedsTable() throws IOException, JSONException, ParseException {
+        JSONObject page = readJsonObjectFromUrl("https://data.korona.gov.sk/api/hospital-beds/by-district");
+        JSONArray json = page.getJSONArray("page");
+        assert json != null;
+
+        List<Districts> districts = districtsService.getDistricts();
+
+        for (int i = 0; i < json.length(); i++) {
+            JSONObject codeObject = (JSONObject) json.get(i);
+
+            Date oldest_reported_at = simpleDateFormat.parse(String.valueOf(codeObject.get("oldest_reported_at")));
+            Date newest_reported_at = simpleDateFormat.parse(String.valueOf(codeObject.get("newest_reported_at")));
+            Date published_on = secondSimpleDateFormat.parse(String.valueOf(codeObject.get("published_on")));
+            int district_id = (int) codeObject.get("district_id");
+            long id = ((Number) codeObject.get("id")).longValue();
+            int capacity_all = (int) codeObject.get("capacity_all");
+            int free_all = (int) codeObject.get("free_all");
+            int capacity_covid = (int) codeObject.get("capacity_covid");
+            int occupied_jis_covid = (int) codeObject.get("occupied_jis_covid");
+            int occupied_oaim_covid = (int) codeObject.get("occupied_oaim_covid");
+            int occupied_o2_covid = (int) codeObject.get("occupied_o2_covid");
+            int occupied_other_covid = (int) codeObject.get("occupied_other_covid");
+            Date updated_at = simpleDateFormat.parse(String.valueOf(codeObject.get("updated_at")));
+
+            try {
+                districtHospitalBedsService.addDistHosBeds(new DistrictHospitalBeds(id,oldest_reported_at, newest_reported_at,
+                published_on, districts.get(district_id - 1), capacity_all, free_all, capacity_covid, occupied_jis_covid,
+                        occupied_oaim_covid, occupied_o2_covid, occupied_other_covid, updated_at));
+            } catch (Exception e) {
+                System.out.println(e.getMessage());
+            }
+        }
+    }
+
+    public void updateHosBedsTable() throws IOException, JSONException, ParseException {
+        JSONObject page = readJsonObjectFromUrl("https://data.korona.gov.sk/api/hospital-beds");
+        JSONArray json = page.getJSONArray("page");
+        assert json != null;
+
+        List<Hospitals> hospitals = hospitalsService.getHospitals();
+
+        for (int i = 0; i < json.length(); i++) {
+            JSONObject codeObject = (JSONObject) json.get(i);
+
+            Date reported_at = simpleDateFormat.parse(String.valueOf(codeObject.get("reported_at")));
+            Date updated_at = simpleDateFormat.parse(String.valueOf(codeObject.get("updated_at")));
+            Date published_on = secondSimpleDateFormat.parse(String.valueOf(codeObject.get("published_on")));
+            int hospital_id = (int) codeObject.get("hospital_id");
+            long id = ((Number) codeObject.get("id")).longValue();
+            int capacity_all = (int) codeObject.get("capacity_all");
+            int free_all = (int) codeObject.get("free_all");
+            int capacity_covid = (int) codeObject.get("capacity_covid");
+            int occupied_jis_covid = (int) codeObject.get("occupied_jis_covid");
+            int occupied_oaim_covid = (int) codeObject.get("occupied_oaim_covid");
+            int occupied_o2_covid = (int) codeObject.get("occupied_o2_covid");
+            int occupied_other_covid = (int) codeObject.get("occupied_other_covid");
+
+            try {
+                hospitalBedsService.addHosBeds(new HospitalBeds(id, hospitals.get(hospital_id - 1), reported_at,
+                        updated_at, published_on, capacity_all, free_all, capacity_covid, occupied_jis_covid,
+                        occupied_oaim_covid, occupied_o2_covid, occupied_other_covid));
+            } catch (Exception e) {
+                System.out.println(e.getMessage());
+            }
+        }
+    }
+
+    public void updateSlovakiaVaccinationsTable() throws IOException, JSONException, ParseException {
+        JSONObject page = readJsonObjectFromUrl("https://data.korona.gov.sk/api/vaccinations/in-slovakia");
+        JSONArray json = page.getJSONArray("page");
+        assert json != null;
+
+        for (int i = 0; i < json.length(); i++) {
+            JSONObject codeObject = (JSONObject) json.get(i);
+
+            long id = Integer.parseInt(String.valueOf(codeObject.get("id")));
+            int dose1_count = (int) codeObject.get("dose1_count");
+            int dose2_count = (int) codeObject.get("dose2_count");
+            long dose1_sum = ((Number) codeObject.get("dose1_sum")).longValue();
+            long dose2_sum = ((Number) codeObject.get("dose2_sum")).longValue();
+            Date updated_at = simpleDateFormat.parse(String.valueOf(codeObject.get("updated_at")));
+            Date published_on = secondSimpleDateFormat.parse(String.valueOf(codeObject.get("published_on")));
+
+            try {
+                slovakiaVaccinationsService.addSlovakiaVaccinations(new SlovakiaVaccinations(id, dose1_count, dose2_count,
+                        dose1_sum, dose2_sum, updated_at, published_on));
+            } catch (Exception e) {
+                System.out.println(e.getMessage());
+            }
+        }
+    }
+
+    public void updateRegionVaccinationsTable() throws IOException, JSONException, ParseException {
+        JSONObject page = readJsonObjectFromUrl("https://data.korona.gov.sk/api/vaccinations/by-region");
+        JSONArray json = page.getJSONArray("page");
+        assert json != null;
+
+
+        List<Regions> regions = regionsService.getRegions();
+
+        for (int i = 0; i < json.length(); i++) {
+            JSONObject codeObject = (JSONObject) json.get(i);
+
+            int region_id = (int) codeObject.get("region_id");
+            String id = String.valueOf(codeObject.get("id"));
+            int dose1_count = (int) codeObject.get("dose1_count");
+            int dose2_count = (int) codeObject.get("dose2_count");
+            long dose1_sum = ((Number) codeObject.get("dose1_sum")).longValue();
+            long dose2_sum = ((Number) codeObject.get("dose2_sum")).longValue();
+            Date updated_at = simpleDateFormat.parse(String.valueOf(codeObject.get("updated_at")));
+            Date published_on = secondSimpleDateFormat.parse(String.valueOf(codeObject.get("published_on")));
+
+            try {
+                regionVaccinationsService.addRegionVaccinations(new RegionVaccinations(id, dose1_count, dose2_count,
+                        dose1_sum, dose2_sum, updated_at, published_on, regions.get(region_id)));
+            } catch (Exception e) {
+                System.out.println(e.getMessage());
+            }
+        }
+    }
+
+    public void play() throws JSONException, IOException, ParseException {
+//        regionVaccinationsService.reset();
+//        slovakiaVaccinationsService.reset();
+//        hospitalBedsService.reset();
+//        districtHospitalBedsService.reset();
+//        regionHospitalBedsService.reset();
+//        slovakiaHospitalBedsService.reset();
+//        hospitalsService.reset();
+//        districtsService.reset();
+//        citiesService.reset();
+//        vaccinesService.reset();
+//        regionsService.reset();
+//
+//        updateVaccineTable();
+//        updateRegionsTable();
+//        updateDistrictsTable();
+//        updateCitiesTable();
+//        updateHospitalsTable();
+//        updateSlovHosBedsTable();
+//        updateRegHosBedsTable();
+//        updateDistHosBedsTable();
+//        updateHosBedsTable();
+//        updateSlovakiaVaccinationsTable();
+        updateRegionVaccinationsTable();
     }
 }

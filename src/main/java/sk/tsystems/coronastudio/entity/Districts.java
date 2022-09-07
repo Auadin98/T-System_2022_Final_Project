@@ -25,7 +25,7 @@ public class Districts implements Serializable {
     @OneToMany(mappedBy = "id")
     private List<Cities> cities;
 
-    @OneToMany(mappedBy = "ident")
+    @OneToMany(mappedBy = "id")
     private List<DistrictHospitalBeds> districtHospitalBeds;
 
     public Districts(){}

@@ -30,7 +30,7 @@ public class Regions implements Serializable {
     @OneToMany(mappedBy = "id")
     private List<Vaccinations> vaccinations;
 
-    @OneToMany(mappedBy = "ident")
+    @OneToMany(mappedBy = "id")
     private List<RegionVaccinations> regionVaccinations;
 
     @OneToMany(mappedBy = "id")

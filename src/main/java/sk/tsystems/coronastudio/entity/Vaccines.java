@@ -18,7 +18,7 @@ public class Vaccines implements Serializable {
     @Column(nullable = false)
     private String manufacturer;
 
-    @OneToMany(mappedBy = "ident")
+    @OneToMany(mappedBy = "id")
     private List<Vaccinations> vaccinations;
 
     public Vaccines(){}

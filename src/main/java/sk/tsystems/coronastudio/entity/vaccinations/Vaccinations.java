@@ -12,7 +12,7 @@ public class Vaccinations implements Serializable {
 
     @Id
     @GeneratedValue
-    private long ident;
+    private long id;
 
     @Column(nullable = false)
     private int dose1_count;
@@ -25,11 +25,11 @@ public class Vaccinations implements Serializable {
     private Date published_on;
 
     @ManyToOne
-    @JoinColumn(name = "Vaccines.ident", nullable = false)
+    @JoinColumn(name = "Vaccines.id", nullable = false)
     private Vaccines vaccines;
 
     @ManyToOne
-    @JoinColumn(name = "Regions.ident", nullable = false)
+    @JoinColumn(name = "Regions.id", nullable = false)
     private Regions regions;
 
     public Vaccinations(){}

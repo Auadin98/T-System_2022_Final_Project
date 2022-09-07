@@ -1,5 +1,6 @@
 package sk.tsystems.coronastudio.service.hospitalBedsServices;
 
+import sk.tsystems.coronastudio.entity.hospitalBeds.RegionHospitalBeds;
 import sk.tsystems.coronastudio.entity.hospitalBeds.SlovakiaHospitalBeds;
 
 import javax.persistence.EntityManager;
@@ -8,23 +9,23 @@ import javax.transaction.Transactional;
 import java.util.List;
 
 @Transactional
-public class RegionHospitalBedsServiceJPA implements SlovakiaHospitalBedsService{
+public class RegionHospitalBedsServiceJPA implements RegionHospitalBedsService{
 
     @PersistenceContext
     private EntityManager entityManager;
 
     @Override
-    public void addSlovHosBeds(SlovakiaHospitalBeds slovakiaHospitalBeds) {
-        entityManager.persist(slovakiaHospitalBeds);
+    public void addRegHosBeds(RegionHospitalBeds regionHospitalBeds) {
+        entityManager.persist(regionHospitalBeds);
     }
 
     @Override
-    public List<SlovakiaHospitalBeds> getSlovHosBeds() {
-        return entityManager.createQuery("select s from SlovakiaHospitalBeds s").getResultList();
+    public List<RegionHospitalBeds> getRegHosBeds() {
+        return entityManager.createQuery("select r from RegionHospitalBeds r").getResultList();
     }
 
     @Override
     public void reset() {
-        entityManager.createNativeQuery("DELETE FROM slovakia_hospital_beds").executeUpdate();
+        entityManager.createNativeQuery("DELETE FROM region_hospital_beds").executeUpdate();
     }
 }

@@ -28,7 +28,7 @@ public class Hospitals implements Serializable{
     @OneToMany(mappedBy = "ident")
     private List<VaccinationContacts> vaccinationContacts;
 
-    @OneToMany(mappedBy = "ident")
+    @OneToMany(mappedBy = "id")
     private List<HospitalBeds> hospitalBeds;
 
     public Hospitals(){}
