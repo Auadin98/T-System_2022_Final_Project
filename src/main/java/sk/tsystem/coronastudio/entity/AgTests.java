@@ -1,4 +1,4 @@
-package entity;
+package sk.tsystem.coronastudio.entity;
 
 import javax.persistence.*;
 import java.util.Date;
@@ -25,7 +25,8 @@ public class AgTests {
     private int positivesSum;
     private int negativesSum;
 
-    private float positivityRate = positivesCount/(positivesCount + negativesCount) * 100;
+    private float positivityRate;
+    //= positivesCount/(positivesCount + negativesCount) * 100;
 
     /**
      * Constructors:

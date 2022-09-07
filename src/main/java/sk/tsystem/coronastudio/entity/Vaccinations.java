@@ -1,4 +1,4 @@
-package entity;
+package sk.tsystem.coronastudio.entity;
 
 import javax.persistence.*;
 import java.util.Date;

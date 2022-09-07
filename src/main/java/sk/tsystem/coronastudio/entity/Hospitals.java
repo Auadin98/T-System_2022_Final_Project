@@ -1,6 +1,7 @@
-package entity;
+package sk.tsystem.coronastudio.entity;
 
 import javax.persistence.*;
+import java.util.List;
 
 @Entity
 public class Hospitals {
@@ -16,6 +17,15 @@ public class Hospitals {
     private String title;
     @Column(name = "Code", nullable = false, unique = true)
     private String code;
+
+    @OneToMany(mappedBy = "ident")
+    private List<HospitalBeds> hospitalBeds;
+    @OneToMany(mappedBy = "ident")
+    private List<HospitalPatients> hospitalPatients;
+    @OneToMany(mappedBy = "ident")
+    private List<Hospitals> hospitals;
+    @OneToMany(mappedBy = "ident")
+    private List<VaccinationContacts> vaccinationContacts;
 
     public Hospitals() {
     }

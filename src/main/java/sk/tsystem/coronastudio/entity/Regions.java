@@ -1,6 +1,7 @@
-package entity;
+package sk.tsystem.coronastudio.entity;
 
 import javax.persistence.*;
+import java.util.List;
 
 @Entity
 public class Regions {
@@ -14,6 +15,17 @@ public class Regions {
     private String code;
     @Column(name = "Abbreviation", nullable = false, length = 5, unique = true)
     private String abbreviation;
+
+    @OneToMany(mappedBy = "ident")
+    private List<AgTests> agTests;
+    @OneToMany(mappedBy = "ident")
+    private List<Districts> districts;
+    @OneToMany(mappedBy = "ident")
+    private List<HospitalBeds> hospitalBeds;
+    @OneToMany(mappedBy = "ident")
+    private List<HospitalPatients> hospitalPatients;
+    @OneToMany(mappedBy = "ident")
+    private List<Vaccinations> vaccinations;
 
     public Regions() {
     }

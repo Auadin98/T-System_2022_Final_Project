@@ -1,9 +1,7 @@
-package entity;
+package sk.tsystem.coronastudio.entity;
 
-import javax.persistence.Column;
-import javax.persistence.Entity;
-import javax.persistence.GeneratedValue;
-import javax.persistence.Id;
+import javax.persistence.*;
+import java.util.List;
 
 @Entity
 public class Vaccines {
@@ -14,6 +12,9 @@ public class Vaccines {
     private String title;
     @Column(name = "Manufacturer", nullable = false)
     private String manufacturer;
+
+    @OneToMany(mappedBy = "ident")
+    private List<Vaccinations> vaccinations;
 
     public Vaccines() {
     }

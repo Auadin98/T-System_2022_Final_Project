@@ -1,37 +1,40 @@
-package entity;
+package sk.tsystem.coronastudio.entity;
 
 import javax.persistence.*;
-
+import java.util.List;
 @Entity
-public class Districts {
+public class Cities {
     @Id
     @GeneratedValue
     private long ident;
 
     @ManyToOne
-    @JoinColumn(name = "Regions.ident", nullable = false)
-    private Regions regions;
+    @JoinColumn(name = "Districts.ident", nullable = false)
+    private Districts districts;
 
     @Column(name="Title", nullable = false, length = 128, unique = true)
     private String title;
     @Column(name = "Code", nullable = false, unique = true)
     private String code;
 
-    public Districts() {
+    @OneToMany(mappedBy = "ident")
+    private List<Hospitals> hospitals;
+
+    public Cities() {
     }
 
-    public Districts(Regions regions, String title, String code) {
-        this.regions = regions;
+    public Cities(Districts districts, String title, String code) {
+        this.districts = districts;
         this.title = title;
         this.code = code;
     }
 
-    public Regions getRegions() {
-        return regions;
+    public Districts getDistricts() {
+        return districts;
     }
 
-    public void setRegions(Regions regions) {
-        this.regions = regions;
+    public void setDistricts(Districts districts) {
+        this.districts = districts;
     }
 
     public String getTitle() {

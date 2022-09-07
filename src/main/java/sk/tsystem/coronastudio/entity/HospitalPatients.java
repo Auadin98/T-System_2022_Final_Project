@@ -1,10 +1,10 @@
-package entity;
+package sk.tsystem.coronastudio.entity;
 
 import javax.persistence.*;
 import java.util.Date;
 
 @Entity
-public class HospitalBeds {
+public class HospitalPatients {
     @Id
     @GeneratedValue
     private long ident;
@@ -23,11 +23,8 @@ public class HospitalBeds {
     private Date updatedAt;
     private Date publishedOn;
 
-    private int capacityAll;
-    private int freeAll;
-    private int capacityCovid;
-    private int occupiedJisCovid;
-    private int occupiedOaimCovid;
-    private int occupiedO2Covid;
-    private int occupiedOtherCovid;
+    private int ventilatedCovid;
+    private int nonCovid;
+    private int confirmedCovid;
+    private int suspectedCovid;
 }
