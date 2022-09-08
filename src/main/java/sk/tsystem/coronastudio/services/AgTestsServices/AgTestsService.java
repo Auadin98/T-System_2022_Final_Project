@@ -1,6 +1,6 @@
-package sk.tsystem.coronastudio.services;
+package sk.tsystem.coronastudio.services.AgTestsServices;
 
-import sk.tsystem.coronastudio.entity.AgTests;
+import sk.tsystem.coronastudio.entity.AgTests.AgTests;
 
 import java.util.List;
 

@@ -1,5 +1,7 @@
 package sk.tsystem.coronastudio.entity;
 
+import sk.tsystem.coronastudio.entity.Hospitals;
+
 import javax.persistence.*;
 import java.util.Date;
 

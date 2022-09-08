@@ -3,7 +3,6 @@ package sk.tsystem.coronastudio.services;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.web.client.RestTemplate;
-import sk.tsystem.coronastudio.entity.HospitalStaff;
 import sk.tsystem.coronastudio.entity.Regions;
 
 import java.util.Arrays;

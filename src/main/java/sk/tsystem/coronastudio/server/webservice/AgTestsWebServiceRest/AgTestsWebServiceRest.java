@@ -1,9 +1,9 @@
-package sk.tsystem.coronastudio.server.webservice;
+package sk.tsystem.coronastudio.server.webservice.AgTestsWebServiceRest;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
-import sk.tsystem.coronastudio.entity.AgTests;
-import sk.tsystem.coronastudio.services.AgTestsService;
+import sk.tsystem.coronastudio.entity.AgTests.AgTests;
+import sk.tsystem.coronastudio.services.AgTestsServices.AgTestsService;
 import java.util.List;
 @RestController
 @RequestMapping("/api/agTests")

@@ -1,5 +1,7 @@
 package sk.tsystem.coronastudio.entity;
 
+import sk.tsystem.coronastudio.entity.AgTests.AgTests;
+
 import javax.persistence.*;
 import java.util.List;
 

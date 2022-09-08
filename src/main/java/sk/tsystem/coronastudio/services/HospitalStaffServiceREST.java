@@ -4,7 +4,6 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.web.client.RestTemplate;
 import sk.tsystem.coronastudio.entity.HospitalStaff;
-import sk.tsystem.coronastudio.entity.Hospitals;
 
 import java.util.Arrays;
 import java.util.List;

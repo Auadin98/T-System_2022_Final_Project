@@ -1,10 +1,14 @@
-package sk.tsystem.coronastudio.entity;
+package sk.tsystem.coronastudio.entity.AgTests;
 
-import javax.persistence.*;
+import sk.tsystem.coronastudio.entity.Districts;
+
+import javax.persistence.GeneratedValue;
+import javax.persistence.Id;
+import javax.persistence.JoinColumn;
+import javax.persistence.ManyToOne;
 import java.util.Date;
 
-@Entity
-public class AgTests {
+public class DistrictAgTests {
     @Id
     @GeneratedValue
     private long ident;
@@ -12,10 +16,6 @@ public class AgTests {
     @ManyToOne
     @JoinColumn(name = "Districts.ident")
     private Districts districts;
-
-    @ManyToOne
-    @JoinColumn(name = "Regions.ident")
-    private Regions regions;
 
     private Date updatedAt;
     private Date publishedOn;
@@ -28,43 +28,18 @@ public class AgTests {
     private float positivityRate;
     //= positivesCount/(positivesCount + negativesCount) * 100;
 
-    /**
-     * Constructors:
-     *      - empty
-     *      - basic
-     *      - with region
-     *      - with district
-     */
-    public AgTests() {
+
+    public DistrictAgTests() {
     }
 
-    public AgTests(Date updatedAt, Date publishedOn, int positivesCount, int negativesCount, int positivesSum, int negativesSum) {
+    public DistrictAgTests(Date updatedAt, Date publishedOn, int positivesCount, int negativesCount, int positivesSum, int negativesSum, float positivityRate) {
         this.updatedAt = updatedAt;
         this.publishedOn = publishedOn;
         this.positivesCount = positivesCount;
         this.negativesCount = negativesCount;
         this.positivesSum = positivesSum;
         this.negativesSum = negativesSum;
-    }
-
-    public AgTests(Regions regions, Date updatedAt, Date publishedOn, int positivesCount, int negativesCount, int positivesSum, int negativesSum) {
-        this.regions = regions;
-        this.updatedAt = updatedAt;
-        this.publishedOn = publishedOn;
-        this.positivesCount = positivesCount;
-        this.negativesCount = negativesCount;
-        this.positivesSum = positivesSum;
-        this.negativesSum = negativesSum;
-    }
-
-    public AgTests(Districts districts, Date updatedAt, Date publishedOn, int positivesCount, int negativesCount, int positivesSum, int negativesSum) {
-        this.districts = districts;
-        this.updatedAt = updatedAt;
-        this.publishedOn = publishedOn;
-        this.positivesCount = positivesCount;
-        this.negativesCount = negativesCount;
-        this.positivesSum = positivesSum;
-        this.negativesSum = negativesSum;
+        this.positivityRate = positivityRate;
     }
 
     /**
@@ -77,14 +52,6 @@ public class AgTests {
 
     public void setDistricts(Districts districts) {
         this.districts = districts;
-    }
-
-    public Regions getRegions() {
-        return regions;
-    }
-
-    public void setRegions(Regions regions) {
-        this.regions = regions;
     }
 
     public Date getUpdatedAt() {

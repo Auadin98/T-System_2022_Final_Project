@@ -1,9 +1,9 @@
-package sk.tsystem.coronastudio.services;
+package sk.tsystem.coronastudio.services.AgTestsServices;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.web.client.RestTemplate;
-import sk.tsystem.coronastudio.entity.AgTests;
+import sk.tsystem.coronastudio.entity.AgTests.AgTests;
 
 import java.util.List;
 import java.util.Arrays;
