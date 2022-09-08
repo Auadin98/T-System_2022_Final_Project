@@ -9,6 +9,7 @@ import java.net.URL;
 import java.nio.charset.Charset;
 
 import org.apache.commons.io.IOUtils;
+import org.json.JSONException;
 import org.json.JSONObject;
 
 import com.fasterxml.jackson.core.exc.StreamReadException;
@@ -19,7 +20,7 @@ import com.fasterxml.jackson.databind.ObjectMapper;
 public class PlaygroundJPA {
     //https://github.com/eugenp/tutorials/blob/master/jackson-modules/jackson-conversions-2/src/main/java/com/baeldung/jackson/jsonurlreader/JsonUrlReader.java
     public static void main(String[] args) throws StreamReadException, DatabindException, MalformedURLException, IOException {
-        String url = args[0];
+        String url = "https://data.korona.gov.sk/api/hospitals";
 
         JsonNode node = PlaygroundJPA.get(url);
         System.out.println(node.toPrettyString());
@@ -56,7 +57,12 @@ public class PlaygroundJPA {
 
     public static JSONObject getJson(String url) throws MalformedURLException, IOException {
         String json = IOUtils.toString(new URL(url), Charset.forName("UTF-8"));
-        JSONObject object = new JSONObject(json);
+        JSONObject object = null;
+        try {
+            object = new JSONObject(json);
+        } catch (JSONException e) {
+            throw new RuntimeException(e);
+        }
         return object;
     }
 }
