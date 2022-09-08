@@ -10,7 +10,7 @@ import java.util.Date;
 public class RegionVaccinations implements Serializable {
 
     @Id
-    private String id;
+    private long id;
 
     @Column(nullable = false)
     private int dose1_count;
@@ -34,7 +34,7 @@ public class RegionVaccinations implements Serializable {
 
     public RegionVaccinations(){}
 
-    public RegionVaccinations(String id, int dose1_count, int dose2_count, long dose1_sum, long dose2_sum, Date updated_at, Date published_on, Regions regions) {
+    public RegionVaccinations(long id, int dose1_count, int dose2_count, long dose1_sum, long dose2_sum, Date updated_at, Date published_on, Regions regions) {
         this.id = id;
         this.dose1_count = dose1_count;
         this.dose2_count = dose2_count;

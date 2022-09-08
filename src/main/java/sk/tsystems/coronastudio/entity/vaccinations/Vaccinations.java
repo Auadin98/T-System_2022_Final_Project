@@ -11,8 +11,7 @@ import java.util.Date;
 public class Vaccinations implements Serializable {
 
     @Id
-    @GeneratedValue
-    private long id;
+    private String id;
 
     @Column(nullable = false)
     private int dose1_count;
@@ -34,43 +33,15 @@ public class Vaccinations implements Serializable {
 
     public Vaccinations(){}
 
-    public Vaccinations(int dose1_count, int dose2_count, Date updated_at, Date published_on) {
+    public Vaccinations(String id, int dose1_count, int dose2_count, Date updated_at, Date published_on,
+                        Vaccines vaccines, Regions regions) {
+        this.id = id;
         this.dose1_count = dose1_count;
         this.dose2_count = dose2_count;
         this.updated_at = updated_at;
         this.published_on = published_on;
-    }
-
-    public int getDose1_count() {
-        return dose1_count;
-    }
-
-    public void setDose1_count(int dose1_count) {
-        this.dose1_count = dose1_count;
-    }
-
-    public int getDose2_count() {
-        return dose2_count;
-    }
-
-    public void setDose2_count(int dose2_count) {
-        this.dose2_count = dose2_count;
-    }
-
-    public Date getUpdated_at() {
-        return updated_at;
-    }
-
-    public void setUpdated_at(Date updated_at) {
-        this.updated_at = updated_at;
-    }
-
-    public Date getPublished_on() {
-        return published_on;
-    }
-
-    public void setPublished_on(Date published_on) {
-        this.published_on = published_on;
+        this.vaccines = vaccines;
+        this.regions = regions;
     }
 
     @Override

@@ -2,6 +2,7 @@ package sk.tsystems.coronastudio.entity;
 
 import sk.tsystems.coronastudio.entity.Cities;
 import sk.tsystems.coronastudio.entity.hospitalBeds.HospitalBeds;
+import sk.tsystems.coronastudio.entity.hospitalPatients.HospitalPatients;
 import sk.tsystems.coronastudio.entity.vaccinations.VaccinationContacts;
 
 import javax.persistence.*;
@@ -25,11 +26,14 @@ public class Hospitals implements Serializable{
     @JoinColumn(name = "Cities.id", nullable = false)
     private Cities cities;
 
-    @OneToMany(mappedBy = "ident")
+    @OneToMany(mappedBy = "id")
     private List<VaccinationContacts> vaccinationContacts;
 
     @OneToMany(mappedBy = "id")
     private List<HospitalBeds> hospitalBeds;
+
+    @OneToMany(mappedBy = "id")
+    private List<HospitalPatients> hospitalPatients;
 
     public Hospitals(){}
 

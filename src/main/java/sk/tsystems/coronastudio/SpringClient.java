@@ -8,12 +8,14 @@ import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.ComponentScan;
 import org.springframework.context.annotation.FilterType;
 import sk.tsystems.coronastudio.database.PlaygroundJPA;
+import sk.tsystems.coronastudio.entity.hospitalPatients.DistrictHospitalPatients;
 import sk.tsystems.coronastudio.service.*;
 import sk.tsystems.coronastudio.service.hospitalBedsServices.*;
-import sk.tsystems.coronastudio.service.vaccinationsServices.RegionVaccinationsService;
-import sk.tsystems.coronastudio.service.vaccinationsServices.RegionVaccinationsServiceJPA;
-import sk.tsystems.coronastudio.service.vaccinationsServices.SlovakiaVaccinationsService;
-import sk.tsystems.coronastudio.service.vaccinationsServices.SlovakiaVaccinationsServiceJPA;
+import sk.tsystems.coronastudio.service.hospitalPatientsServices.DistrictHospitalPatientsService;
+import sk.tsystems.coronastudio.service.hospitalPatientsServices.DistrictHospitalPatientsServiceJPA;
+import sk.tsystems.coronastudio.service.hospitalPatientsServices.HospitalPatientsService;
+import sk.tsystems.coronastudio.service.hospitalPatientsServices.HospitalPatientsServiceJPA;
+import sk.tsystems.coronastudio.service.vaccinationsServices.*;
 
 @SpringBootApplication
 @ComponentScan(excludeFilters = @ComponentScan.Filter(type = FilterType.REGEX, pattern = "sk.tsystems.coronastudio.server.*"))
@@ -65,7 +67,21 @@ public class SpringClient {
     public SlovakiaVaccinationsService slovakiaVaccinationsService(){return new SlovakiaVaccinationsServiceJPA();}
 
     @Bean
-    public RegionVaccinationsService regionVaccinationsService(){return new RegionVaccinationsServiceJPA();
+    public RegionVaccinationsService regionVaccinationsService(){return new RegionVaccinationsServiceJPA();}
+
+    @Bean
+    public VaccinationsService vaccinationsService(){return new VaccinationsServiceJPA();}
+
+    @Bean
+    public VaccinationContactsService vaccinationContactsService(){return new VaccinationContactsServiceJPA();}
+
+    @Bean
+    public DistrictHospitalPatientsService districtHospitalPatientsService(){
+        return new DistrictHospitalPatientsServiceJPA();
+    }
+
+    @Bean
+    public HospitalPatientsService hospitalPatientsService(){return new HospitalPatientsServiceJPA();
     }
 
 }

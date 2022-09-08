@@ -1,6 +1,7 @@
 package sk.tsystems.coronastudio.entity;
 
 import sk.tsystems.coronastudio.entity.hospitalBeds.DistrictHospitalBeds;
+import sk.tsystems.coronastudio.entity.hospitalPatients.DistrictHospitalPatients;
 
 import javax.persistence.*;
 import java.io.Serializable;
@@ -27,6 +28,9 @@ public class Districts implements Serializable {
 
     @OneToMany(mappedBy = "id")
     private List<DistrictHospitalBeds> districtHospitalBeds;
+
+    @OneToMany(mappedBy = "id")
+    private List<DistrictHospitalPatients> districtHospitalPatients;
 
     public Districts(){}
 
