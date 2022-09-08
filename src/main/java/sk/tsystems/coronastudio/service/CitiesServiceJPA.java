@@ -18,6 +18,7 @@ public class CitiesServiceJPA implements CitiesService{
         entityManager.persist(cities);
     }
 
+    @Override
     public List<Cities> getCities(){
         return entityManager.createQuery("select c from Cities c").getResultList();
     }

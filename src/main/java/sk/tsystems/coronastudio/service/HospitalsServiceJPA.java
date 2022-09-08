@@ -17,6 +17,7 @@ public class HospitalsServiceJPA implements HospitalsService{
         entityManager.persist(hospitals);
     }
 
+    @Override
     public List<Hospitals> getHospitals(){
         return entityManager.createQuery("select h from Hospitals h").getResultList();
     }
