@@ -5,8 +5,10 @@ import org.springframework.boot.autoconfigure.SpringBootApplication;
 import org.springframework.boot.autoconfigure.domain.EntityScan;
 import org.springframework.context.annotation.Bean;
 import org.springframework.web.client.RestTemplate;
-import sk.tsystem.coronastudio.services.AgTestsServices.AgTestsService;
-import sk.tsystem.coronastudio.services.AgTestsServices.AgTestsServiceJPA;
+import sk.tsystem.coronastudio.entity.AgTests.SlovakiaAgTests;
+import sk.tsystem.coronastudio.server.webservice.AgTestsWebServiceRest.AgTestsWebServiceRest;
+import sk.tsystem.coronastudio.server.webservice.AgTestsWebServiceRest.DistrictAgTestsWebServiceRest;
+import sk.tsystem.coronastudio.services.AgTestsServices.*;
 
 
 @SpringBootApplication
@@ -26,5 +28,17 @@ public class CoronaStudioServer {
     @Bean
     public AgTestsService agTestsService(){
         return new AgTestsServiceJPA();
+    }
+    @Bean
+    public DistrictAgTestsService districtAgTestsService(){
+        return new DistrictAgTestsServiceJPA();
+    }
+    @Bean
+    public RegionAgTestsService regionAgTestsService(){
+        return new RegionAgTestsServiceJPA();
+    }
+    @Bean
+    public SlovakiaAgTestsService slovakiaAgTestsService(){
+        return new SlovakiaAgTestsServiceJPA();
     }
 }

@@ -1,0 +1,166 @@
+@import url("https://fonts.googleapis.com/css2?family=Encode+Sans+Condensed:wght@100;200;300;400;500;600;700;800;900&display=swap");
+* {
+  margin: 0;
+}
+
+html {
+  font-size: 10px;
+  scroll-behavior: smooth;
+}
+
+body {
+  min-height: 100vh;
+  font-family: 'Encode Sans Condensed', sans-serif;
+  font-size: 2rem;
+  font-weight: 500;
+}
+
+h1 {
+  font-size: 5rem;
+}
+
+.content {
+  padding: 5rem 3rem;
+}
+
+body {
+  display: -ms-grid;
+  display: grid;
+  -ms-grid-rows: auto 1fr auto;
+      grid-template-rows: auto 1fr auto;
+}
+
+#reviews {
+  background: #1d80dd;
+  display: -ms-grid;
+  display: grid;
+  gap: 3rem;
+}
+
+#reviews h1 {
+  color: white;
+  text-align: center;
+}
+
+#reviews .list {
+  display: -ms-grid;
+  display: grid;
+  gap: 2rem;
+}
+
+@media (min-width: 600px) {
+  #reviews .list {
+    -ms-grid-columns: (1fr)[2];
+        grid-template-columns: repeat(2, 1fr);
+  }
+}
+
+@media (min-width: 1200px) {
+  #reviews .list {
+    -ms-grid-columns: (1fr)[3];
+        grid-template-columns: repeat(3, 1fr);
+  }
+}
+
+#reviews .list:hover .card {
+  -webkit-filter: blur(3px);
+          filter: blur(3px);
+}
+
+#reviews .list .card {
+  background: white;
+  text-align: center;
+  padding: 3.5rem 2.5rem;
+  display: -ms-grid;
+  display: grid;
+  gap: 2rem;
+  border-radius: 3rem;
+  -webkit-transition: .3s;
+  transition: .3s;
+}
+
+#reviews .list .card:hover {
+  -webkit-transform: scale(1.05);
+          transform: scale(1.05);
+  -webkit-filter: blur(0);
+          filter: blur(0);
+}
+
+#reviews .list .card:hover img {
+  -webkit-box-shadow: 0 0 10px black;
+          box-shadow: 0 0 10px black;
+}
+
+#reviews .list .card .person {
+  display: -ms-grid;
+  display: grid;
+  justify-items: center;
+  gap: 2rem;
+}
+
+#reviews .list .card .person img {
+  width: 25rem;
+  border-radius: 50%;
+  -webkit-transition: .3s;
+  transition: .3s;
+}
+
+#reviews .list .card .person .detail .name {
+  font-size: 3.5rem;
+  color: #1d80dd;
+  font-weight: 600;
+}
+
+#reviews .list .card .person .detail .job {
+  color: #353535;
+  font-weight: 300;
+}
+
+#reviews .list .card .msg {
+  color: #353535;
+  font-weight: 300;
+  line-height: 3rem;
+}
+.header-app {
+  padding: 1rem 3rem;
+  display: -ms-grid;
+  display: grid;
+  gap: 1rem;
+  justify-items: center;
+  -webkit-box-shadow: 0 0.5rem 1.5rem #353535;
+          box-shadow: 0 0.5rem 1.5rem #353535;
+}
+
+@media (min-width: 600px) {
+  .header-app {
+    grid-auto-flow: column;
+    -webkit-box-align: center;
+        -ms-flex-align: center;
+            align-items: center;
+    -webkit-box-pack: justify;
+        -ms-flex-pack: justify;
+            justify-content: space-between;
+  }
+}
+
+.header-app > a img {
+  width: 7rem;
+}
+
+.header-app nav {
+  display: -ms-grid;
+  display: grid;
+  grid-auto-flow: column;
+  gap: 1.5rem;
+}
+
+.header-app nav a {
+  color: #353535;
+  text-decoration: none;
+  -webkit-transition: .3s;
+  transition: .3s;
+}
+
+.header-app nav a:hover {
+  color: orange;
+}
