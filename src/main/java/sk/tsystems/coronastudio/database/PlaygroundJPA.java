@@ -14,7 +14,7 @@ import sk.tsystems.coronastudio.entity.hospitalPatients.SlovakiaHospitalPatients
 import sk.tsystems.coronastudio.entity.vaccinations.RegionVaccinations;
 import sk.tsystems.coronastudio.entity.vaccinations.SlovakiaVaccinations;
 import sk.tsystems.coronastudio.server.service.*;
-import sk.tsystems.coronastudio.service.*;
+
 import sk.tsystems.coronastudio.server.service.hospitalBedsServices.DistrictHospitalBedsService;
 import sk.tsystems.coronastudio.server.service.hospitalBedsServices.HospitalBedsService;
 import sk.tsystems.coronastudio.server.service.hospitalBedsServices.RegionHospitalBedsService;

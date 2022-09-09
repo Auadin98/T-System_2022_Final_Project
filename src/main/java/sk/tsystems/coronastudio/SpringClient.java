@@ -10,7 +10,6 @@ import org.springframework.context.annotation.FilterType;
 import sk.tsystems.coronastudio.database.PlaygroundJPA;
 import sk.tsystems.coronastudio.server.service.*;
 import sk.tsystems.coronastudio.server.service.hospitalBedsServices.*;
-import sk.tsystems.coronastudio.service.*;
 import sk.tsystems.coronastudio.server.service.hospitalPatientsServices.RegionHospitalPatientsService;
 import sk.tsystems.coronastudio.server.service.hospitalPatientsServices.RegionHospitalPatientsServiceJPA;
 import sk.tsystems.coronastudio.server.service.hospitalPatientsServices.SlovakiaHospitalPatientsService;

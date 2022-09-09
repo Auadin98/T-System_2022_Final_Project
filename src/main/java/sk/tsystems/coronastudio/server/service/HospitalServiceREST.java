@@ -21,7 +21,7 @@ public class HospitalServiceREST implements HospitalsService{
 
     @Override
     public void addHospital(Hospitals hospitals) {
-        restTemplate.postForEntity(url+"/hospitals", hospitals, Districts.class);
+        restTemplate.postForEntity(url+"/hospitals", hospitals, Hospitals.class);
     }
 
     @Override
