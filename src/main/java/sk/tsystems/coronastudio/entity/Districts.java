@@ -1,5 +1,6 @@
 package sk.tsystems.coronastudio.entity;
 
+import sk.tsystems.coronastudio.entity.agTests.DistrictAgTests;
 import sk.tsystems.coronastudio.entity.hospitalBeds.DistrictHospitalBeds;
 import sk.tsystems.coronastudio.entity.hospitalPatients.DistrictHospitalPatients;
 
@@ -8,7 +9,7 @@ import java.io.Serializable;
 import java.util.List;
 
 @Entity
-public class Districts implements Serializable {
+public class Districts{
 
     @Id
     private long id;
@@ -31,6 +32,9 @@ public class Districts implements Serializable {
 
     @OneToMany(mappedBy = "id")
     private List<DistrictHospitalPatients> districtHospitalPatients;
+
+    @OneToMany(mappedBy = "id")
+    private List<DistrictAgTests> districtAgTests;
 
     public Districts(){}
 

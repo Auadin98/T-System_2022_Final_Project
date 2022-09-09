@@ -7,14 +7,13 @@ import org.springframework.boot.builder.SpringApplicationBuilder;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.ComponentScan;
 import org.springframework.context.annotation.FilterType;
-import sk.tsystems.coronastudio.database.PlaygroundJPA;
-import sk.tsystems.coronastudio.entity.hospitalPatients.DistrictHospitalPatients;
+import sk.tsystems.coronastudio.database.updateDB;
 import sk.tsystems.coronastudio.service.*;
+import sk.tsystems.coronastudio.service.agTestsServices.*;
 import sk.tsystems.coronastudio.service.hospitalBedsServices.*;
-import sk.tsystems.coronastudio.service.hospitalPatientsServices.DistrictHospitalPatientsService;
-import sk.tsystems.coronastudio.service.hospitalPatientsServices.DistrictHospitalPatientsServiceJPA;
-import sk.tsystems.coronastudio.service.hospitalPatientsServices.HospitalPatientsService;
-import sk.tsystems.coronastudio.service.hospitalPatientsServices.HospitalPatientsServiceJPA;
+import sk.tsystems.coronastudio.service.hospitalPatientsServices.*;
+import sk.tsystems.coronastudio.service.hospitalStaffServices.HospitalStaffService;
+import sk.tsystems.coronastudio.service.hospitalStaffServices.HospitalStaffServiceJPA;
 import sk.tsystems.coronastudio.service.vaccinationsServices.*;
 
 @SpringBootApplication
@@ -27,13 +26,13 @@ public class SpringClient {
     }
 
     @Bean
-    public CommandLineRunner runnerJPA(PlaygroundJPA console) {
+    public CommandLineRunner runnerJPA(updateDB console) {
         return s -> console.play();
     }
 
     @Bean
-    public PlaygroundJPA consoleJPA(){
-        return new PlaygroundJPA();
+    public updateDB consoleJPA(){
+        return new updateDB();
     }
 
     @Bean
@@ -83,5 +82,23 @@ public class SpringClient {
     @Bean
     public HospitalPatientsService hospitalPatientsService(){return new HospitalPatientsServiceJPA();
     }
+
+    @Bean
+    public RegionHospitalPatientsService regionHospitalPatientsService(){return new RegionHospitalPatientsServiceJPA();}
+
+    @Bean
+    public SlovakiaHospitalPatientsService slovakiaHospitalPatientsService(){return new SlovakiaHospitalPatientsServiceJPA();}
+
+    @Bean
+    public HospitalStaffService hospitalStaffService(){return new HospitalStaffServiceJPA();}
+
+    @Bean
+    public SlovakiaAgTestsService slovakiaAgTestsService(){return new SlovakiaAgTestsServiceJPA();}
+
+    @Bean
+    public RegionAgTestsService regionAgTestsService(){return new RegionAgTestsServiceJPA();}
+
+    @Bean
+    public DistrictAgTestsService districtAgTestsService(){return new DistrictAgTestsServiceJPA();}
 
 }

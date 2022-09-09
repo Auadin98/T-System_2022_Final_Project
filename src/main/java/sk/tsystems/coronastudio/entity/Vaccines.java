@@ -3,11 +3,10 @@ package sk.tsystems.coronastudio.entity;
 import sk.tsystems.coronastudio.entity.vaccinations.Vaccinations;
 
 import javax.persistence.*;
-import java.io.Serializable;
 import java.util.List;
 
 @Entity
-public class Vaccines implements Serializable {
+public class Vaccines {
 
     @Id
     private long id;

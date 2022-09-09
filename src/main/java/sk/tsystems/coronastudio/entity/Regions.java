@@ -1,16 +1,15 @@
 package sk.tsystems.coronastudio.entity;
 
-import sk.tsystems.coronastudio.entity.Districts;
+import sk.tsystems.coronastudio.entity.agTests.RegionAgTests;
 import sk.tsystems.coronastudio.entity.hospitalBeds.RegionHospitalBeds;
 import sk.tsystems.coronastudio.entity.vaccinations.RegionVaccinations;
 import sk.tsystems.coronastudio.entity.vaccinations.Vaccinations;
 
 import javax.persistence.*;
-import java.io.Serializable;
 import java.util.List;
 
 @Entity
-public class Regions implements Serializable {
+public class Regions{
 
     @Id
     private long id;
@@ -35,6 +34,9 @@ public class Regions implements Serializable {
 
     @OneToMany(mappedBy = "id")
     private List<RegionHospitalBeds> regionHospitalBeds;
+
+    @OneToMany(mappedBy = "id")
+    private List<RegionAgTests> regionAgTests;
 
     public Regions(){}
 

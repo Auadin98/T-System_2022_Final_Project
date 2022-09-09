@@ -1,14 +1,14 @@
 package sk.tsystems.coronastudio.server.webservice.hospitalPatientsWebServices;
 
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestBody;
+import org.springframework.web.bind.annotation.*;
 import sk.tsystems.coronastudio.entity.hospitalPatients.HospitalPatients;
 import sk.tsystems.coronastudio.service.hospitalPatientsServices.HospitalPatientsService;
 
 import java.util.List;
 
+@RestController
+@RequestMapping("/api/hospitalPatients")
 public class HospitalPatientsWebServiceRest {
 
     @Autowired

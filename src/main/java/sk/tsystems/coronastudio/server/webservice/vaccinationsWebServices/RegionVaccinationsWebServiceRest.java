@@ -1,9 +1,7 @@
 package sk.tsystems.coronastudio.server.webservice.vaccinationsWebServices;
 
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestBody;
+import org.springframework.web.bind.annotation.*;
 import sk.tsystems.coronastudio.entity.vaccinations.RegionVaccinations;
 import sk.tsystems.coronastudio.entity.vaccinations.Vaccinations;
 import sk.tsystems.coronastudio.service.vaccinationsServices.RegionVaccinationsService;
@@ -11,6 +9,8 @@ import sk.tsystems.coronastudio.service.vaccinationsServices.VaccinationsService
 
 import java.util.List;
 
+@RestController
+@RequestMapping("/api/regionVaccinations")
 public class RegionVaccinationsWebServiceRest {
 
     @Autowired

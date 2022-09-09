@@ -5,7 +5,7 @@ import java.io.Serializable;
 import java.util.List;
 
 @Entity
-public class Cities implements Serializable {
+public class Cities{
 
     @Id
     private int id;

@@ -8,7 +8,6 @@ import javax.transaction.Transactional;
 import java.util.Arrays;
 import java.util.List;
 
-@Transactional
 public class CitiesServiceREST implements CitiesService{
 
     @Value("${remote.server.api}")
