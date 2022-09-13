@@ -5,7 +5,21 @@
 
 <canvas id="myChart" style="width:100%;max-width:600px"></canvas>
 
-<script>
+<script type="module">
+
+    const pg = require('pg');
+    const conString = "postgres://postgres:postgres@localhost:5432/coronastudio";
+
+    const client = new pg.Client(conString);
+    client.connect();
+
+    const query = client.query("SELECT title FROM cities LIMIT 5");
+
+    client.connect();
+
+    client.query("SELECT title FROM cities LIMIT 5");
+
+    // -----------------------------------------------------------------------
     var xValues = ["Italy", "France", "Spain", "USA", "Argentina"];
     var yValues = [55, 49, 44, 24, 15];
     var barColors = [
@@ -32,6 +46,25 @@
             }
         }
     });
+
+    // ------------------------------------------------------------
+
+    // var pg = require('pg');
+    //
+    // var conString = "postgres://postgres:postgres@localhost:5432/coronastudio";
+    //
+    //
+    // var client = new pg.Client(conString);
+    // client.connect();
+    //
+    // var query = client.query("SELECT title FROM cities LIMIT 5");
+    //
+    // query.on("row", function (row, result) {
+    //
+    //     result.addRow(row);
+    // });
+
+
 </script>
 
 </body>
