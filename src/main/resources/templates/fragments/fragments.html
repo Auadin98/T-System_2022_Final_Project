@@ -13,6 +13,39 @@
             <a href="TBD">TBD</a>
         </nav>
     </div>
+    <div class="form-popup" id="registerForm">
+        <form action="/register" class="form-container" method="post">
+            <h1>Register</h1>
+            <hr>
+            <label for="userName"><b>Username</b></label>
+            <input type="text" placeholder="Enter User Name" name="userName" id="username" required>
+
+            <label for="password"><b>Password</b></label>
+            <input type="password" placeholder="Enter Password" name="password" id="password" required>
+
+            <p>By creating an account you agree to our <a href="#">Terms & Privacy</a>.</p>
+            <button type="submit" class="btn">Register</button>
+            <button type="button" class="btn cancel" onclick="closeRegisterForm()">Close</button>
+        </form>
+    </div>
+    <!-- A button to open the popup form -->
+    <button class="open-button-login" onclick="openLoginForm()">Log In</button>
+    <button class="open-button-register" onclick="openRegisterForm()">Register</button>
+
+    <div class="form-popup" id="loginForm">
+        <form action="/login" class="form-container" method="post">
+            <h1>Login</h1>
+            <hr>
+            <label for="userName"><b>Username</b></label>
+            <input type="text" placeholder="Enter Username" name="userName" required>
+
+            <label for="password"><b>Password</b></label>
+            <input type="password" placeholder="Enter Password" name="password" required>
+
+            <button type="submit" class="btn">Login</button>
+            <button type="button" class="btn cancel" onclick="closeLoginForm()">Close</button>
+        </form>
+    </div>
 </header>
 
 <footer th:fragment="footer">
