@@ -2,6 +2,8 @@ package sk.tsystems.coronastudio.server.webservice.agTestsWebServices;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
+import sk.tsystems.coronastudio.ObjectsDTO.AgNegativeTestDTO;
+import sk.tsystems.coronastudio.ObjectsDTO.AgPositiveTestDTO;
 import sk.tsystems.coronastudio.entity.agTests.RegionAgTests;
 import sk.tsystems.coronastudio.service.agTestsServices.RegionAgTestsService;
 
@@ -22,4 +24,10 @@ public class RegionAgTestsWebServiceRest {
     public List<RegionAgTests> getRegAgTests(){
         return regionAgTestsService.getRegAgTests();
     }
+
+    @GetMapping("/PositiveRegionTests")
+    public List<AgPositiveTestDTO> getPositiveAgTest(){return regionAgTestsService.getPositiveAgTests();}
+
+    @GetMapping("/NegativeRegionTests")
+    public List<AgNegativeTestDTO> getNegativeAgTest(){return regionAgTestsService.getNegativeAgTests();}
 }

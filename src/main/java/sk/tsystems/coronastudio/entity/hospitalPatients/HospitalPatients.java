@@ -49,6 +49,78 @@ public class HospitalPatients {
         this.published_on = published_on;
     }
 
+    public long getId() {
+        return id;
+    }
+
+    public void setId(long id) {
+        this.id = id;
+    }
+
+    public Hospitals getHospitals() {
+        return hospitals;
+    }
+
+    public void setHospitals(Hospitals hospitals) {
+        this.hospitals = hospitals;
+    }
+
+    public Date getReported_at() {
+        return reported_at;
+    }
+
+    public void setReported_at(Date reported_at) {
+        this.reported_at = reported_at;
+    }
+
+    public int getVentilated_covid() {
+        return ventilated_covid;
+    }
+
+    public void setVentilated_covid(int ventilated_covid) {
+        this.ventilated_covid = ventilated_covid;
+    }
+
+    public int getNon_covid() {
+        return non_covid;
+    }
+
+    public void setNon_covid(int non_covid) {
+        this.non_covid = non_covid;
+    }
+
+    public int getConfirmed_covid() {
+        return confirmed_covid;
+    }
+
+    public void setConfirmed_covid(int confirmed_covid) {
+        this.confirmed_covid = confirmed_covid;
+    }
+
+    public int getSuspected_covid() {
+        return suspected_covid;
+    }
+
+    public void setSuspected_covid(int suspected_covid) {
+        this.suspected_covid = suspected_covid;
+    }
+
+    public Date getUpdated_at() {
+        return updated_at;
+    }
+
+    public void setUpdated_at(Date updated_at) {
+        this.updated_at = updated_at;
+    }
+
+    public Date getPublished_on() {
+        return published_on;
+    }
+
+    public void setPublished_on(Date published_on) {
+        this.published_on = published_on;
+    }
+
     @Override
     public String toString() {
         return "HospitalPatients{" +

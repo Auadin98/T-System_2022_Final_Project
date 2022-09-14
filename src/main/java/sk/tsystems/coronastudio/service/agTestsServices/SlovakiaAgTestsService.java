@@ -10,5 +10,9 @@ public interface SlovakiaAgTestsService {
 
     public List<SlovakiaAgTests> getSlovAgTests();
 
+    public List<SlovakiaAgTests> getSumSlovAgTests();
+
+    public List<SlovakiaAgTests> getAvgPosRate();
+
     public void reset();
 }

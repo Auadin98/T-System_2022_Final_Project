@@ -47,6 +47,39 @@ public class Regions{
         Abbreviation = abbreviation;
     }
 
+    public long getId() {
+        return id;
+    }
+
+    public void setId(long id) {
+        this.id = id;
+    }
+
+    public String getTitle() {
+        return title;
+    }
+
+    public void setTitle(String title) {
+        this.title = title;
+    }
+
+    public String getCode() {
+        return code;
+    }
+
+    public void setCode(String code) {
+        this.code = code;
+    }
+
+    public String getAbbreviation() {
+        return Abbreviation;
+    }
+
+    public void setAbbreviation(String abbreviation) {
+        Abbreviation = abbreviation;
+    }
+
+
     @Override
     public String toString() {
         return "Regions{" +
