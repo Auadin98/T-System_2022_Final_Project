@@ -3,6 +3,7 @@ package sk.tsystems.coronastudio.service.hospitalPatientsServices;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.web.client.RestTemplate;
+import sk.tsystems.coronastudio.ObjectsDTO.RegHosPatientsDTO;
 import sk.tsystems.coronastudio.entity.hospitalPatients.RegionHospitalPatients;
 
 import javax.transaction.Transactional;
@@ -26,6 +27,11 @@ public class RegionHospitalPatientsServiceREST implements RegionHospitalPatients
     public List<RegionHospitalPatients> getRegionHospitalPatients() {
         return Arrays.asList(restTemplate.getForEntity(url+"/regionHospitalPatients/", RegionHospitalPatients[].class).getBody());
 
+    }
+
+    @Override
+    public List<RegHosPatientsDTO> getActualRegionHospitalPatients() {
+        return Arrays.asList(restTemplate.getForObject(url+"/actualRegionHospitalPatients/", RegHosPatientsDTO[].class));
     }
 
     @Override

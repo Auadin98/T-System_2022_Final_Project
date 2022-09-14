@@ -2,6 +2,7 @@ package sk.tsystems.coronastudio.server.webservice.hospitalPatientsWebServices;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
+import sk.tsystems.coronastudio.ObjectsDTO.RegHosPatientsDTO;
 import sk.tsystems.coronastudio.entity.hospitalPatients.RegionHospitalPatients;
 import sk.tsystems.coronastudio.service.hospitalPatientsServices.RegionHospitalPatientsService;
 
@@ -21,5 +22,10 @@ public class RegionHospitalPatientsWebServiceRest {
     @GetMapping
     public List<RegionHospitalPatients> getRegionHospitalPatients() {
         return regionHospitalPatientsService.getRegionHospitalPatients();
+    }
+
+    @GetMapping("/ActualRegionHospitalPatients")
+    public List<RegHosPatientsDTO> getActualRegionHospitalPatients(){
+        return regionHospitalPatientsService.getActualRegionHospitalPatients();
     }
 }

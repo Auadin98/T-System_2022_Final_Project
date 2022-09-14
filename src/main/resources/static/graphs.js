@@ -1,31 +1,34 @@
 //Negativne testy v regionoch
-$(document).ready(function(){
+$(document).ready(function () {
     $.ajax({
         url: "http://localhost:8080/api/regionAgTests/PositiveRegionTests",
         method: "GET",
-        success: function(data) {
+        success: function (data) {
             var correctData = [];
             var title = [];
             var positive = [];
 
-            for(var i in data) {
-                for(var j in data[i]) {
+            for (var i in data) {
+                for (var j in data[i]) {
                     correctData.push(data[i][j]);
                 }
             }
 
-            for(var i in correctData) {
-                if (i%2 !== 0){
+            for (var i in correctData) {
+                if (i % 2 !== 0) {
                     positive.push(correctData[i]);
-                }else title.push(correctData[i]);
+                } else title.push(correctData[i]);
             }
 
             var chartdata = {
                 labels: title,
-                datasets : [
+                datasets: [
                     {
                         label: 'Počet pozitívnych testov v krajoch od začiatku pandémie.',
-                        backgroundColor: 'rgba(200, 200, 200, 0.75)',
+                        backgroundColor: ['rgba(245, 39, 67, 0.8)','rgba(41, 39, 245, 0.8)',
+                                          'rgba(39, 245, 234, 0.8)','rgba(245, 234, 39, 0.8)',
+                                          'rgba(245, 148, 39, 0.8)','rgba(238, 39, 245, 0.8)',
+                                          'rgba(192, 191, 192, 0.8)','rgba(49, 201, 50, 0.8)'],
                         borderColor: 'rgba(200, 200, 200, 0.75)',
                         hoverBackgroundColor: 'rgba(200, 200, 200, 1)',
                         hoverBorderColor: 'rgba(200, 200, 200, 1)',
@@ -37,11 +40,11 @@ $(document).ready(function(){
             var ctx = $("#positiveRegionTests");
 
             var barGraph = new Chart(ctx, {
-                type: 'bar',
+                type: 'polarArea',
                 data: chartdata
             });
         },
-        error: function(data) {
+        error: function (data) {
             console.log(data);
         }
     });
@@ -49,30 +52,30 @@ $(document).ready(function(){
 
 //----------------------------------------------------------------------------------------
 //Počet negatívnych testov v krajoch
-$(document).ready(function(){
+$(document).ready(function () {
     $.ajax({
         url: "http://localhost:8080/api/regionAgTests/NegativeRegionTests",
         method: "GET",
-        success: function(data) {
+        success: function (data) {
             var correctData = [];
             var title = [];
             var negative = [];
 
-            for(var i in data) {
-                for(var j in data[i]) {
+            for (var i in data) {
+                for (var j in data[i]) {
                     correctData.push(data[i][j]);
                 }
             }
 
-            for(var i in correctData) {
-                if (i%2 !== 0){
+            for (var i in correctData) {
+                if (i % 2 !== 0) {
                     negative.push(correctData[i]);
-                }else title.push(correctData[i]);
+                } else title.push(correctData[i]);
             }
 
             var chartdata = {
                 labels: title,
-                datasets : [
+                datasets: [
                     {
                         label: 'Počet negatívnych testov v krajoch od začiatku pandémie.',
                         backgroundColor: 'rgba(200, 200, 200, 0.75)',
@@ -91,37 +94,37 @@ $(document).ready(function(){
                 data: chartdata
             });
         },
-        error: function(data) {
+        error: function (data) {
             console.log(data);
         }
     });
 });
 //----------------------------------------------------------------------------------------
 //Negitevne vs Pozitivne
-$(document).ready(function(){
+$(document).ready(function () {
     $.ajax({
         url: "http://localhost:8080/api/slovakiaAgTests/slovakiaSumAgTests",
         method: "GET",
-        success: function(data) {
+        success: function (data) {
             var correctData = [];
             var tests = [];
 
-            for(var i in data) {
-                for(var j in data[i]) {
+            for (var i in data) {
+                for (var j in data[i]) {
                     correctData.push(data[i][j]);
                 }
             }
 
-            for(var i in correctData) {
-                    tests.push(correctData[i]);
+            for (var i in correctData) {
+                tests.push(correctData[i]);
             }
 
             var chartdata = {
-                labels: ["Negatívne testy","Pozitívne testy"],
-                datasets : [
+                labels: ["Negatívne testy", "Pozitívne testy"],
+                datasets: [
                     {
                         label: 'Počet negatívnych testov a počet pozitývnych testov.',
-                        backgroundColor: ['rgba(200, 100, 200, 0.75)','rgba(100, 200, 200, 0.75)'],
+                        backgroundColor: ['rgba(200, 100, 200, 0.75)', 'rgba(100, 200, 200, 0.75)'],
                         borderColor: 'rgba(200, 200, 200, 0.75)',
                         hoverBackgroundColor: 'rgba(200, 200, 200, 1)',
                         hoverBorderColor: 'rgba(200, 200, 200, 1)',
@@ -137,7 +140,7 @@ $(document).ready(function(){
                 data: chartdata
             });
         },
-        error: function(data) {
+        error: function (data) {
             console.log(data);
         }
     });
@@ -145,38 +148,75 @@ $(document).ready(function(){
 
 //----------------------------------------------------------------------------------------
 //positivity_rate za posledne 2 roky
-$(document).ready(function(){
+$(document).ready(function () {
     $.ajax({
         url: "http://localhost:8080/api/slovakiaAgTests/avgPosRate",
         method: "GET",
-        success: function(data) {
+        success: function (data) {
             var correctData = [];
             var rate = [];
             var month = [];
-            for(var i in data) {
-                for(var j in data[i]) {
+            for (var i in data) {
+                for (var j in data[i]) {
                     correctData.push(data[i][j]);
                 }
             }
-            var indexOfrate = 2;
-            var indexOfmonth = 1;
-            var x = 0;
-            with (x === 24) {
-                rate.push(correctData[indexOfrate]);
-                month.push(correctData[indexOfmonth]);
-                3 + indexOfrate;
-                indexOfmonth++;
-                x++;
-            }
 
-            console.log(month)
+            var indexOfmonth = 1;
+            var indexOfrate = 2;
+            var x = 0;
+            while (x < 25) {
+                rate.push(correctData[indexOfrate]);
+                switch (correctData[indexOfmonth]) {
+                    case 1:
+                        month.push("Január");
+                        break;
+                    case 2:
+                        month.push("Február");
+                        break;
+                    case 3:
+                        month.push("Marec");
+                        break;
+                    case 4:
+                        month.push("Aprĺ");
+                        break;
+                    case 5:
+                        month.push("Máj");
+                        break;
+                    case 6:
+                        month.push("Jún");
+                        break;
+                    case 7:
+                        month.push("Júl");
+                        break;
+                    case 8:
+                        month.push("August");
+                        break;
+                    case 9:
+                        month.push("September");
+                        break;
+                    case 10:
+                        month.push("Október");
+                        break;
+                    case 11:
+                        month.push("November");
+                        break;
+                    case 12:
+                        month.push("December");
+                        break;
+                }
+                indexOfrate = indexOfrate + 3;
+                indexOfmonth = indexOfmonth + 3;
+                x++;
+                console.log(x)
+            }
 
             var chartdata = {
                 labels: month,
-                datasets : [
+                datasets: [
                     {
-                        label: 'Počet negatívnych testov a počet pozitývnych testov.',
-                        backgroundColor: ['rgba(200, 100, 200, 0.75)','rgba(100, 200, 200, 0.75)'],
+                        label: 'Priemerná miera pozitivity za posledné 2 roky.',
+                        backgroundColor: 'rgba(100, 200, 200, 0.75)',
                         borderColor: 'rgba(200, 200, 200, 0.75)',
                         hoverBackgroundColor: 'rgba(200, 200, 200, 1)',
                         hoverBorderColor: 'rgba(200, 200, 200, 1)',
@@ -192,7 +232,57 @@ $(document).ready(function(){
                 data: chartdata
             });
         },
-        error: function(data) {
+        error: function (data) {
+            console.log(data);
+        }
+    });
+});
+
+//----------------------------------------------------------------------------------------
+//Aktualny počet pacientov v nemocniciach
+$(document).ready(function () {
+    $.ajax({
+        url: "http://localhost:8080/api/regionHospitalPatients/ActualRegionHospitalPatients",
+        method: "GET",
+        success: function (data) {
+            var correctData = [];
+            var title = [];
+            var patients = [];
+
+            for (var i in data) {
+                for (var j in data[i]) {
+                    correctData.push(data[i][j]);
+                }
+            }
+
+            for (var i in correctData) {
+                if (i % 2 !== 0) {
+                    patients.push(correctData[i]);
+                } else title.push(correctData[i]);
+            }
+
+            var chartdata = {
+                labels: title,
+                datasets: [
+                    {
+                        label: 'Počet negatívnych testov v krajoch od začiatku pandémie.',
+                        backgroundColor: 'rgba(200, 200, 200, 0.75)',
+                        borderColor: 'rgba(200, 200, 200, 0.75)',
+                        hoverBackgroundColor: 'rgba(200, 200, 200, 1)',
+                        hoverBorderColor: 'rgba(200, 200, 200, 1)',
+                        data: patients
+                    }
+                ]
+            };
+
+            var ctx = $("#actualRegionPatients");
+
+            var barGraph = new Chart(ctx, {
+                type: 'bar',
+                data: chartdata
+            });
+        },
+        error: function (data) {
             console.log(data);
         }
     });
