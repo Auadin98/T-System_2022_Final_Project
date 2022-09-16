@@ -9,6 +9,8 @@ import sk.tsystem.coronastudio.entity.AgTests.SlovakiaAgTests;
 import sk.tsystem.coronastudio.server.webservice.AgTestsWebServiceRest.AgTestsWebServiceRest;
 import sk.tsystem.coronastudio.server.webservice.AgTestsWebServiceRest.DistrictAgTestsWebServiceRest;
 import sk.tsystem.coronastudio.services.AgTestsServices.*;
+import sk.tsystem.coronastudio.services.CommentService;
+import sk.tsystem.coronastudio.services.CommentServiceJPA;
 import sk.tsystem.coronastudio.services.UserService;
 import sk.tsystem.coronastudio.services.UserServiceJPA;
 
@@ -46,5 +48,9 @@ public class CoronaStudioServer {
     @Bean
     public UserService userService() {
         return new UserServiceJPA();
+    }
+    @Bean
+    public CommentService commentService(){
+        return new CommentServiceJPA();
     }
 }

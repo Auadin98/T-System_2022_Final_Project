@@ -13,6 +13,10 @@
             <a href="TBD">TBD</a>
         </nav>
     </div>
+    <div class="user" th:if="${@userController.loggedIn}">
+        <span th:text="${@userController.loggedUser}"/>
+        <a href="/logout">Odhlásiť sa</a>
+    </div>
     <div class="form-popup" id="registerForm">
         <form action="/register" class="form-container" method="post">
             <h1>Register</h1>

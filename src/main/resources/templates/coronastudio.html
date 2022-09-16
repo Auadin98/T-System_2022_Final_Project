@@ -20,6 +20,32 @@
         Praesent elementum dolor ac massa elementum congue.
         Pellentesque in lacinia elit, vitae dapibus metus.
         Sed at risus tempor, viverra libero id, auctor ipsum.</p>
+
+    <label for="comment">Enter Comment:</label> <br/>
+    <form id="commentForm">
+        <input id="comment" type="text" name="comment" maxlength="1000"/>
+        <button id="commentSubmit" type="submit">Submit</button>
+        <br/>
+    </form>
+
+    <div>
+        <table class="comment">
+            <thead>
+            <tr>
+                <th>Name</th>
+                <th>Comment</th>
+                <th>Date</th>
+            </tr>
+
+
+            </thead>
+            <h3>Comments</h3>
+
+            <tbody id="commentsTable">
+            </tbody>
+        </table>
+    </div>
+
     <script type="text/javascript">
         function openLoginForm() {
           document.getElementById("loginForm").style.display = "block";
@@ -35,6 +61,73 @@
 
         function closeRegisterForm() {
           document.getElementById("registerForm").style.display = "none";
+        }
+
+        let elements = {
+            comments: document.getElementById("commentsTable")
+        };
+
+        fetchAndRenderComments("/api/comment", elements);
+
+        document.getElementById("commentForm").addEventListener("submit", event => {
+            event.preventDefault();
+            submitComment("http://localhost:8080/coronastudio/jsoncomment");
+        })
+
+        async function submitComment(url) {
+            const request =
+                {
+                    method: 'POST',
+                    body: document.getElementById("comment").value.trim()
+                }
+            await fetch(url, request)
+                .then(response => {
+                    if (response.ok) {
+                        return response.text();
+                    } else {
+                        return Promise.reject(new Error(`Server answered with ${response.status}: ${response.statusText}.`));
+                    }
+                });
+
+            fetchAndRenderComments("/api/comment", elements);
+        }
+
+        //---------------------fetching
+        function fetchAndRenderComments(url, elements) {
+            fetch(url)  //there may be a second parameter, an object wih options, but we do not need it now.
+                .then(response => {      //fetch promise fullfilled (operation completed successfully)
+                    if (response.ok) {    //successful execution includes an error response from the server. So we have to check the return status of the response here.
+                        return response.json(); //we return a new promise with the response data as a js object, constructed from the JSON string in the response
+                    } else { //if we get server error
+                        return Promise.reject(new Error(`Comments acquisition failed. Server answered with ${response.status}: ${response.statusText}.`)); //we return a rejected promise to be catched later
+                    }
+                })
+                .then(comments => { //here we process the returned response data in JSON ...
+                    console.log(comments);
+                    renderComments(comments, elements);
+                })
+                .catch(error => { ////here we process all the failed promises
+                    errorMessage = "Nepodarilo sa získať alebo zobraziť komentáre. Podrobnosti: " + error;
+                    // console.log(errorMessage);
+                    elements.scoresTableBody.innerHTML = errorMessage;
+                });
+        }
+
+        //-------------------rendering
+        function renderComments(comments, elements) {
+            const rowCount = comments.length;
+            let htmlToRender = "";
+
+            for (row = 0; row < rowCount; row++) {
+                htmlToRender +=
+                    `<tr>
+                        <td>${comments[row].username}</td>
+                        <td>${comments[row].comment}</td>
+                        <td>${comments[row].commentedon}</td>
+                    </tr>`;
+            }
+
+            elements.comments.innerHTML = htmlToRender;
         }
     </script>
 </main>
