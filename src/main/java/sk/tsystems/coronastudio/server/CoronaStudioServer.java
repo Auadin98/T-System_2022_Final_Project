@@ -1,10 +1,13 @@
 package sk.tsystems.coronastudio.server;
 
+import org.springframework.boot.CommandLineRunner;
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
 import org.springframework.boot.autoconfigure.domain.EntityScan;
 import org.springframework.context.annotation.Bean;
+import org.springframework.scheduling.annotation.EnableScheduling;
 import org.springframework.web.client.RestTemplate;
+import sk.tsystems.coronastudio.database.UpdateDB;
 import sk.tsystems.coronastudio.service.*;
 import sk.tsystems.coronastudio.service.agTestsServices.*;
 import sk.tsystems.coronastudio.service.hospitalBedsServices.*;
@@ -14,11 +17,16 @@ import sk.tsystems.coronastudio.service.hospitalStaffServices.HospitalStaffServi
 import sk.tsystems.coronastudio.service.vaccinationsServices.*;
 
 @SpringBootApplication
+@EnableScheduling
 @EntityScan(basePackages = "sk.tsystems.coronastudio.entity")
 public class CoronaStudioServer {
     public static void main(String[] args) {
-
         SpringApplication.run(CoronaStudioServer.class);
+    }
+
+    @Bean
+    public UpdateDB consoleJPA(){
+        return new UpdateDB();
     }
 
     @Bean

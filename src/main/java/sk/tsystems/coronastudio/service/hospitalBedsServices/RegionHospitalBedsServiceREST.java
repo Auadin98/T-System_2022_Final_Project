@@ -3,6 +3,7 @@ package sk.tsystems.coronastudio.service.hospitalBedsServices;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.web.client.RestTemplate;
+import sk.tsystems.coronastudio.ObjectsDTO.RegFreeCovBedsDTO;
 import sk.tsystems.coronastudio.entity.hospitalBeds.RegionHospitalBeds;
 import javax.transaction.Transactional;
 import java.util.Arrays;
@@ -23,6 +24,11 @@ public class RegionHospitalBedsServiceREST implements RegionHospitalBedsService{
     @Override
     public List<RegionHospitalBeds> getRegHosBeds() {
         return Arrays.asList(restTemplate.getForEntity(url+"/regionHospitalBeds",RegionHospitalBeds[].class).getBody());
+    }
+
+    @Override
+    public List<RegFreeCovBedsDTO> getRegCovCapacity() {
+        return Arrays.asList(restTemplate.getForObject(url+"/regCovCapacity",RegFreeCovBedsDTO[].class));
     }
 
     @Override

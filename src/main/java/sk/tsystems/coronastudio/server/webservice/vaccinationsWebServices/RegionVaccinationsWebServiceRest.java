@@ -2,6 +2,7 @@ package sk.tsystems.coronastudio.server.webservice.vaccinationsWebServices;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
+import sk.tsystems.coronastudio.ObjectsDTO.VaccinationsRegDTO;
 import sk.tsystems.coronastudio.entity.vaccinations.RegionVaccinations;
 import sk.tsystems.coronastudio.entity.vaccinations.Vaccinations;
 import sk.tsystems.coronastudio.service.vaccinationsServices.RegionVaccinationsService;
@@ -24,5 +25,10 @@ public class RegionVaccinationsWebServiceRest {
     @GetMapping
     public List<RegionVaccinations> getRegionVaccinations(){
         return regionVaccinationsService.getRegionVaccinations();
+    }
+
+    @GetMapping("/regDoseVacc")
+    public List<VaccinationsRegDTO> getRegDoseVacc(){
+        return regionVaccinationsService.getRegDoseVacc();
     }
 }

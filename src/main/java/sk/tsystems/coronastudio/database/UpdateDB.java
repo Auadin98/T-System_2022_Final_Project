@@ -3,7 +3,14 @@ package sk.tsystems.coronastudio.database;
 import org.json.JSONArray;
 import org.json.JSONException;
 import org.json.JSONObject;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.context.annotation.Bean;
+import org.springframework.scheduling.annotation.Async;
+import org.springframework.scheduling.annotation.EnableAsync;
+import org.springframework.scheduling.annotation.Scheduled;
+import org.springframework.stereotype.Component;
 import sk.tsystems.coronastudio.entity.*;
 import sk.tsystems.coronastudio.entity.agTests.DistrictAgTests;
 import sk.tsystems.coronastudio.entity.agTests.RegionAgTests;
@@ -47,9 +54,11 @@ import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.util.Date;
 import java.util.List;
+import java.util.concurrent.TimeUnit;
 
+@Component
 @Transactional
-public class updateDB {
+public class UpdateDB {
     @Autowired
     private CitiesService citiesService;
     @Autowired
@@ -710,7 +719,6 @@ public class updateDB {
 
             try {
                 double positivity_rate = (double) codeObject.get("positivity_rate");
-//                double positivity_rate = (double) (positives_count/(positives_count + negatives_count)) * 100;
                 districtAgTestsService.addDisAgTest(new DistrictAgTests(id, districts.get(district_id - 1), updated_at,
                         published_on, positives_count, negatives_count, positives_sum, negatives_sum, positivity_rate));
             } catch (Exception e) {
@@ -719,49 +727,50 @@ public class updateDB {
         }
     }
 
-    public void play() throws JSONException, IOException, ParseException {
-//        districtAgTestsService.reset();
-//        regionAgTestsService.reset();
-//        slovakiaAgTestsService.reset();
-//        hospitalStaffService.reset();
-//        slovakiaHospitalPatientsService.reset();
-//        regionHospitalPatientsService.reset();
-//        hospitalPatientsService.reset();
-//        districtHospitalPatientsService.reset();
-//        hospitalBedsService.reset();
-//        vaccinationContactsService.reset();
-//        districtHospitalBedsService.reset();
-//        vaccinationsService.reset();
-//        regionHospitalBedsService.reset();
-//        regionVaccinationsService.reset();
-//        slovakiaHospitalBedsService.reset();
-//        slovakiaVaccinationsService.reset();
-//        hospitalsService.reset();
-//        citiesService.reset();
-//        districtsService.reset();
-//        vaccinesService.reset();
-//        regionsService.reset();
-//
-//        updateVaccineTable();
-//        updateRegionsTable();
-//        updateDistrictsTable();
-//        updateCitiesTable();
-//        updateHospitalsTable();
-//        updateSlovHosBedsTable();
-//        updateRegHosBedsTable();
-//        updateDistHosBedsTable();
-//        updateHosBedsTable();
-//        updateSlovakiaVaccinationsTable();
-//        updateRegionVaccinationsTable();
-//        updateVaccinationsTable();
-//        updateVaccinationContactsTable();
-//        updateHospitalPatientsTable();
-//        updateDistrictHospitalPatientsTable();
-//        updateRegionHospitalPatientsTable();
-//        updateSlovakiaHospitalPatientsTable();
-//        updateHospitalStaffTable();
-//        updateSlovAgTestsTable();
-//        updateRegAgTestsTable();
-//        updateDistAgTestsTable();
+    @Scheduled(fixedDelay = 24, timeUnit = TimeUnit.HOURS)
+    public void play() throws JSONException, IOException, ParseException{
+        districtAgTestsService.reset();
+        regionAgTestsService.reset();
+        slovakiaAgTestsService.reset();
+        hospitalStaffService.reset();
+        slovakiaHospitalPatientsService.reset();
+        regionHospitalPatientsService.reset();
+        hospitalPatientsService.reset();
+        districtHospitalPatientsService.reset();
+        hospitalBedsService.reset();
+        vaccinationContactsService.reset();
+        districtHospitalBedsService.reset();
+        vaccinationsService.reset();
+        regionHospitalBedsService.reset();
+        regionVaccinationsService.reset();
+        slovakiaHospitalBedsService.reset();
+        slovakiaVaccinationsService.reset();
+        hospitalsService.reset();
+        citiesService.reset();
+        districtsService.reset();
+        vaccinesService.reset();
+        regionsService.reset();
+
+        updateVaccineTable();
+        updateRegionsTable();
+        updateDistrictsTable();
+        updateCitiesTable();
+        updateHospitalsTable();
+        updateSlovHosBedsTable();
+        updateRegHosBedsTable();
+        updateDistHosBedsTable();
+        updateHosBedsTable();
+        updateSlovakiaVaccinationsTable();
+        updateRegionVaccinationsTable();
+        updateVaccinationsTable();
+        updateVaccinationContactsTable();
+        updateHospitalPatientsTable();
+        updateDistrictHospitalPatientsTable();
+        updateRegionHospitalPatientsTable();
+        updateSlovakiaHospitalPatientsTable();
+        updateHospitalStaffTable();
+        updateSlovAgTestsTable();
+        updateRegAgTestsTable();
+        updateDistAgTestsTable();
     }
 }

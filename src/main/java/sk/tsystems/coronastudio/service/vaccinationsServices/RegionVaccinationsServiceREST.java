@@ -3,6 +3,7 @@ package sk.tsystems.coronastudio.service.vaccinationsServices;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.web.client.RestTemplate;
+import sk.tsystems.coronastudio.ObjectsDTO.VaccinationsRegDTO;
 import sk.tsystems.coronastudio.entity.vaccinations.RegionVaccinations;
 import javax.transaction.Transactional;
 import java.util.Arrays;
@@ -23,6 +24,11 @@ public class RegionVaccinationsServiceREST implements RegionVaccinationsService{
     @Override
     public List<RegionVaccinations> getRegionVaccinations() {
         return Arrays.asList(restTemplate.getForEntity(url+"/regionVaccinations",RegionVaccinations[].class).getBody());
+    }
+
+    @Override
+    public List<VaccinationsRegDTO> getRegDoseVacc() {
+        return Arrays.asList(restTemplate.getForObject(url+"/regDoseVacc",VaccinationsRegDTO[].class));
     }
 
     @Override

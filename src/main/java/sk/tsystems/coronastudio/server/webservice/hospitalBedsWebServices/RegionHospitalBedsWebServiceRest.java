@@ -2,6 +2,7 @@ package sk.tsystems.coronastudio.server.webservice.hospitalBedsWebServices;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
+import sk.tsystems.coronastudio.ObjectsDTO.RegFreeCovBedsDTO;
 import sk.tsystems.coronastudio.entity.hospitalBeds.RegionHospitalBeds;
 import sk.tsystems.coronastudio.service.hospitalBedsServices.RegionHospitalBedsService;
 
@@ -23,4 +24,7 @@ public class RegionHospitalBedsWebServiceRest {
     public List<RegionHospitalBeds> getRegionHospitalBeds(){
         return regionHospitalBedsService.getRegHosBeds();
     }
+
+    @GetMapping("/regCovCapacity")
+    public List<RegFreeCovBedsDTO> getRegCovCapacity(){return regionHospitalBedsService.getRegCovCapacity();}
 }

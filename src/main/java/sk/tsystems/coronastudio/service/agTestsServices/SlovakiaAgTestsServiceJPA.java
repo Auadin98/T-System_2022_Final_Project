@@ -26,7 +26,7 @@ public class SlovakiaAgTestsServiceJPA  implements SlovakiaAgTestsService{
 
     @Override
     public List<SlovakiaAgTests> getSumSlovAgTests() {
-        return entityManager.createNativeQuery("SELECT sum(negatives_sum) AS negativneTesty, sum(positives_sum) as pozitivneTesty FROM slovakia_ag_tests")
+        return entityManager.createNativeQuery("SELECT negatives_sum, positives_sum FROM slovakia_ag_tests limit 1")
                 .getResultList();
     }
 

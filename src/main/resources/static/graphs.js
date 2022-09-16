@@ -40,7 +40,7 @@ $(document).ready(function () {
             var ctx = $("#positiveRegionTests");
 
             var barGraph = new Chart(ctx, {
-                type: 'polarArea',
+                type: 'bar',
                 data: chartdata
             });
         },
@@ -165,7 +165,7 @@ $(document).ready(function () {
             var indexOfmonth = 1;
             var indexOfrate = 2;
             var x = 0;
-            while (x < 25) {
+            while (x < 24) {
                 rate.push(correctData[indexOfrate]);
                 switch (correctData[indexOfmonth]) {
                     case 1:
@@ -208,7 +208,6 @@ $(document).ready(function () {
                 indexOfrate = indexOfrate + 3;
                 indexOfmonth = indexOfmonth + 3;
                 x++;
-                console.log(x)
             }
 
             var chartdata = {
@@ -265,7 +264,7 @@ $(document).ready(function () {
                 labels: title,
                 datasets: [
                     {
-                        label: 'Počet negatívnych testov v krajoch od začiatku pandémie.',
+                        label: 'Aktuálny počet pacientov v nemocniciach s ochorením COVID 19.',
                         backgroundColor: 'rgba(200, 200, 200, 0.75)',
                         borderColor: 'rgba(200, 200, 200, 0.75)',
                         hoverBackgroundColor: 'rgba(200, 200, 200, 1)',
@@ -287,5 +286,114 @@ $(document).ready(function () {
         }
     });
 });
+//----------------------------------------------------------------------------------------
+//Zaockovanost
+$(document).ready(function () {
+    $.ajax({
+        url: "http://localhost:8080/api/regionVaccinations/regDoseVacc",
+        method: "GET",
+        success: function (data) {
+            var correctData = [];
+            var title = [];
+            var dose1 = [];
+            var dose2 = [];
+
+            for (var i in data) {
+                for (var j in data[i]) {
+                    correctData.push(data[i][j]);
+                }
+            }
+
+            var indexOfTitle = 0;
+            var indexOfDose1 = 1;
+            var indexOfDose2 = 2;
+            var x = 0;
+
+            while (x < 8){
+                title.push(correctData[indexOfTitle]);
+                dose1.push(correctData[indexOfDose1]);
+                dose2.push(correctData[indexOfDose2]);
+                indexOfTitle = indexOfTitle + 3;
+                indexOfDose1 = indexOfDose1 + 3;
+                indexOfDose2 = indexOfDose2 + 3;
+                x++;
+            }
+
+            var chartdata = {
+                labels: title,
+                datasets: [{
+                    label: "1. dávka",
+                    backgroundColor: "blue",
+                    data: dose1
+                }, {
+                    label: "2. dávka",
+                    backgroundColor: "red",
+                    data: dose2
+                }]
+            };
+            var ctx = $("#vaccinations");
+            var barGraph = new Chart(ctx, {
+                type: 'bar',
+                data: chartdata
+            });
+        },
+        error: function (data) {
+            console.log(data);
+        }
+    });
+});
+
+//Cov 19 kapacita
+$(document).ready(function () {
+    $.ajax({
+        url: "http://localhost:8080/api/regionHospitalBeds/regCovCapacity",
+        method: "GET",
+        success: function (data) {
+            var correctData = [];
+            var title = [];
+            var capacity = [];
+
+            for (var i in data) {
+                for (var j in data[i]) {
+                    correctData.push(data[i][j]);
+                }
+            }
+
+            for (var i in correctData) {
+                if (i % 2 !== 0) {
+                    capacity.push(correctData[i]);
+                } else title.push(correctData[i]);
+            }
+
+            var chartdata = {
+                labels: title,
+                datasets: [
+                    {
+                        label: 'Počet voľných miest pre ochoronnie covid19.',
+                        backgroundColor: ['rgba(245, 39, 67, 0.8)','rgba(41, 39, 245, 0.8)',
+                            'rgba(39, 245, 234, 0.8)','rgba(245, 234, 39, 0.8)',
+                            'rgba(245, 148, 39, 0.8)','rgba(238, 39, 245, 0.8)',
+                            'rgba(192, 191, 192, 0.8)','rgba(49, 201, 50, 0.8)'],
+                        borderColor: 'rgba(200, 200, 200, 0.75)',
+                        hoverBackgroundColor: 'rgba(200, 200, 200, 1)',
+                        hoverBorderColor: 'rgba(200, 200, 200, 1)',
+                        data: capacity
+                    }
+                ]
+            };
+
+            var ctx = $("#actualRegCapacity");
+
+            var barGraph = new Chart(ctx, {
+                type: 'bar',
+                data: chartdata
+            });
+        },
+        error: function (data) {
+            console.log(data);
+        }
+    });
+});
+
 
 

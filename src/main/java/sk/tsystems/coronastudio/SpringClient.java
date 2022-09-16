@@ -1,5 +1,6 @@
 package sk.tsystems.coronastudio;
 
+import org.springframework.beans.factory.annotation.Qualifier;
 import org.springframework.boot.CommandLineRunner;
 import org.springframework.boot.WebApplicationType;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
@@ -7,7 +8,7 @@ import org.springframework.boot.builder.SpringApplicationBuilder;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.ComponentScan;
 import org.springframework.context.annotation.FilterType;
-import sk.tsystems.coronastudio.database.updateDB;
+import sk.tsystems.coronastudio.database.UpdateDB;
 import sk.tsystems.coronastudio.service.*;
 import sk.tsystems.coronastudio.service.agTestsServices.*;
 import sk.tsystems.coronastudio.service.hospitalBedsServices.*;
@@ -26,14 +27,14 @@ public class SpringClient {
     }
 
     @Bean
-    public CommandLineRunner runnerJPA(updateDB console) {
+    public CommandLineRunner runnerJPA(UpdateDB console) {
         return s -> console.play();
     }
 
-    @Bean
-    public updateDB consoleJPA(){
-        return new updateDB();
-    }
+//    @Bean
+//    public UpdateDB consoleJPA(){
+//        return new UpdateDB();
+//    }
 
     @Bean
     public CitiesService citiesService() { return new CitiesServiceJPA();}

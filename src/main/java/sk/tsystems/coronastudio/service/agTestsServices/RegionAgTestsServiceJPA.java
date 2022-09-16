@@ -28,14 +28,14 @@ public class RegionAgTestsServiceJPA implements RegionAgTestsService{
 
     @Override
     public List<AgPositiveTestDTO> getPositiveAgTests() {
-        List<AgPositiveTestDTO> resultList = entityManager.createNativeQuery("SELECT r2.title, sum(r.positives_sum) AS test FROM region_ag_tests r inner join regions r2 on r2.id = r.regions_id GROUP BY regions_id, r2.title")
+        List<AgPositiveTestDTO> resultList = entityManager.createNativeQuery("SELECT r2.title, r.positives_sum AS test FROM region_ag_tests r inner join regions r2 on r2.id = r.regions_id limit 8")
                 .getResultList();
         return resultList;
     }
 
     @Override
     public List<AgNegativeTestDTO> getNegativeAgTests() {
-        List<AgNegativeTestDTO> resultList = entityManager.createNativeQuery("SELECT r2.title, sum(r.negatives_sum) AS test FROM region_ag_tests r inner join regions r2 on r2.id = r.regions_id GROUP BY regions_id, r2.title")
+        List<AgNegativeTestDTO> resultList = entityManager.createNativeQuery("SELECT r2.title, r.negatives_sum AS test FROM region_ag_tests r inner join regions r2 on r2.id = r.regions_id limit 8")
                 .getResultList();
         return resultList;
     }
