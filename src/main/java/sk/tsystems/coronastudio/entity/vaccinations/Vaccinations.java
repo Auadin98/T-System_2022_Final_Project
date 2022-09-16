@@ -44,6 +44,62 @@ public class Vaccinations implements Serializable {
         this.regions = regions;
     }
 
+    public String getId() {
+        return id;
+    }
+
+    public void setId(String id) {
+        this.id = id;
+    }
+
+    public int getDose1_count() {
+        return dose1_count;
+    }
+
+    public void setDose1_count(int dose1_count) {
+        this.dose1_count = dose1_count;
+    }
+
+    public int getDose2_count() {
+        return dose2_count;
+    }
+
+    public void setDose2_count(int dose2_count) {
+        this.dose2_count = dose2_count;
+    }
+
+    public Date getUpdated_at() {
+        return updated_at;
+    }
+
+    public void setUpdated_at(Date updated_at) {
+        this.updated_at = updated_at;
+    }
+
+    public Date getPublished_on() {
+        return published_on;
+    }
+
+    public void setPublished_on(Date published_on) {
+        this.published_on = published_on;
+    }
+
+    public Vaccines getVaccines() {
+        return vaccines;
+    }
+
+    public void setVaccines(Vaccines vaccines) {
+        this.vaccines = vaccines;
+    }
+
+    public Regions getRegions() {
+        return regions;
+    }
+
+    public void setRegions(Regions regions) {
+        this.regions = regions;
+    }
+
     @Override
     public String toString() {
         return "Vaccinations{" +

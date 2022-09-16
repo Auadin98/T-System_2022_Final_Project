@@ -22,4 +22,14 @@ public class SlovakiaAgTestsWebServiceRest {
     public List<SlovakiaAgTests> getSlovAgTests(){
         return slovakiaAgTestsService.getSlovAgTests();
     }
+
+    @GetMapping("/slovakiaSumAgTests")
+    public List<SlovakiaAgTests> getSumSlovAgTests(){
+        return slovakiaAgTestsService.getSumSlovAgTests();
+    }
+
+    @GetMapping("/avgPosRate")
+    public List<SlovakiaAgTests> getAvgPosRate(){
+        return slovakiaAgTestsService.getAvgPosRate();
+    }
 }

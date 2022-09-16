@@ -22,6 +22,8 @@ public class DistrictsServiceJPA implements DistrictsService{
     public List<Districts> getDistricts() {
         return entityManager.createQuery("select d from Districts d").getResultList();
     }
+
+
     @Override
     public void reset() {
         entityManager.createNativeQuery("DELETE FROM districts").executeUpdate();

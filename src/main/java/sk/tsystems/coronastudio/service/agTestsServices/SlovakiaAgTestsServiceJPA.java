@@ -25,6 +25,18 @@ public class SlovakiaAgTestsServiceJPA  implements SlovakiaAgTestsService{
     }
 
     @Override
+    public List<SlovakiaAgTests> getSumSlovAgTests() {
+        return entityManager.createNativeQuery("SELECT sum(negatives_sum) AS negativneTesty, sum(positives_sum) as pozitivneTesty FROM slovakia_ag_tests")
+                .getResultList();
+    }
+
+    @Override
+    public List<SlovakiaAgTests> getAvgPosRate() {
+        return entityManager.createNativeQuery("SELECT EXTRACT(year from published_on) as year, EXTRACT(month from published_on) as month, avg(positivity_rate)FROM slovakia_ag_tests group by year, month order by year desc ,month desc limit 24")
+                .getResultList();
+    }
+
+    @Override
     public void reset(){
         entityManager.createNativeQuery("DELETE FROM slovakia_ag_tests").executeUpdate();
     }

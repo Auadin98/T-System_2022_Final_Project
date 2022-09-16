@@ -53,6 +53,14 @@ public class DistrictAgTests {
         this.districts = districts;
     }
 
+    public long getId() {
+        return id;
+    }
+
+    public void setId(long id) {
+        this.id = id;
+    }
+
     public Date getUpdatedAt() {
         return updatedAt;
     }
@@ -103,5 +111,9 @@ public class DistrictAgTests {
 
     public double getPositivityRate() {
         return positivityRate;
+    }
+
+    public void setPositivityRate(double positivityRate) {
+        this.positivityRate = positivityRate;
     }
 }

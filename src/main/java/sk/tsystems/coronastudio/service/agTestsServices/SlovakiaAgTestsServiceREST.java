@@ -25,6 +25,16 @@ public class SlovakiaAgTestsServiceREST implements SlovakiaAgTestsService{
     }
 
     @Override
+    public List<SlovakiaAgTests> getSumSlovAgTests() {
+        return Arrays.asList(restTemplate.getForEntity(url+"/slovakiaSumAgTests/",SlovakiaAgTests[].class).getBody());
+    }
+
+    @Override
+    public List<SlovakiaAgTests> getAvgPosRate() {
+        return Arrays.asList(restTemplate.getForEntity(url+"/AvgPosRate/",SlovakiaAgTests[].class).getBody());
+    }
+
+    @Override
     public void reset() {
         throw new UnsupportedOperationException("Not supported via web.");
     }

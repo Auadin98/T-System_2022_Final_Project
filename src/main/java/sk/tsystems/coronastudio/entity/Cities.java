@@ -56,22 +56,6 @@ public class Cities{
         this.code = code;
     }
 
-    public Districts getDistricts() {
-        return districts;
-    }
-
-    public void setDistricts(Districts districts) {
-        this.districts = districts;
-    }
-
-    public List<Hospitals> getHospitals() {
-        return hospitals;
-    }
-
-    public void setHospitals(List<Hospitals> hospitals) {
-        this.hospitals = hospitals;
-    }
-
     @Override
     public String toString() {
         return "Cities{" +

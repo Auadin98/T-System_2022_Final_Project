@@ -3,8 +3,9 @@ package sk.tsystems.coronastudio.service;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.web.client.RestTemplate;
+import sk.tsystems.coronastudio.ObjectsDTO.ActualDataTestTDO;
 import sk.tsystems.coronastudio.entity.Cities;
-import javax.transaction.Transactional;
+
 import java.util.Arrays;
 import java.util.List;
 
@@ -17,12 +18,17 @@ public class CitiesServiceREST implements CitiesService{
 
     @Override
     public void addCity(Cities cities) {
-        restTemplate.postForEntity(url+"/cities",cities,Cities.class);
+        restTemplate.postForEntity(url+"/cities/",cities,Cities.class);
     }
 
     @Override
     public List<Cities> getCities(){
-        return Arrays.asList(restTemplate.getForEntity(url+"/cities",Cities[].class).getBody());
+        return Arrays.asList(restTemplate.getForEntity(url+"/cities/",Cities[].class).getBody());
+    }
+
+    @Override
+    public List<ActualDataTestTDO> getActualDataCities() {
+        return Arrays.asList(restTemplate.getForEntity(url+"/actualcities/",ActualDataTestTDO[].class).getBody());
     }
 
 
