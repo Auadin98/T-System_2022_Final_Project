@@ -6,6 +6,7 @@ import sk.tsystems.coronastudio.entity.Cities;
 import sk.tsystems.coronastudio.service.CitiesService;
 
 import java.util.List;
+import java.util.Map;
 
 @RestController
 @RequestMapping("/api/cities")
@@ -17,6 +18,11 @@ public class CitiesWebServiceRest {
     @PostMapping
     public void addCities(@RequestBody Cities cities){
         citiesService.addCity(cities);
+    }
+
+    @GetMapping("/ActualDataTestTDO")
+    public List<Map<String, Object>> actualDataTestTDOS(){
+        return citiesService.getActualDataCities();
     }
 
     @GetMapping

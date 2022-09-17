@@ -1,0 +1,327 @@
+<!DOCTYPE HTML>
+<html lang="en"
+      xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <meta name="author" content="DS" />
+    <link rel="stylesheet"
+          href="/design.css"
+          media="screen" />
+    <script src='https://kit.fontawesome.com/a076d05399.js' crossorigin='anonymous'></script>
+    <script type="text/javascript" src="/js/jquery.min.js"></script>
+    <script type="text/javascript" src="/js/Chart.min.js"></script>
+    <script type="text/javascript" src="/js/graphs.js"></script>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/twitter-bootstrap/5.2.0/css/bootstrap.min.css ">
+    <link rel="stylesheet" href="https://cdn.datatables.net/1.12.1/css/dataTables.bootstrap5.min.css">
+    <script src = "https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+    <script src="https://code.jquery.com/jquery-3.6.1.js"></script>
+    <script src="https://cdn.datatables.net/1.12.1/js/jquery.dataTables.min.js"></script>
+    <script src="https://cdn.datatables.net/1.12.1/js/dataTables.bootstrap5.min.js"></script>
+</head>
+<body>
+
+    <ul class="nav">
+        <li><a class="active" href="#home">Home</a></li>
+        <li><a href="#news">News</a></li>
+        <li><a href="#contact">Contact</a></li>
+        <li><a href="#about">About</a></li>
+    </ul>
+
+    <div class="user" th:if="${@userController.loggedIn}">
+        <span th:text="${@userController.loggedUser}"/>
+        <a href="/logout">Odhlásiť sa</a>
+    </div>
+    <div th:if="not ${@userController.loggedIn}">
+        <div class="form-popup" id="registerForm">
+            <form action="/register" class="form-container" method="post">
+                <h1>Register</h1>
+                <hr>
+                <label for="userName"><b>Username</b></label>
+                <input type="text" placeholder="Enter User Name" name="userName" id="username" required>
+
+                <label for="password"><b>Password</b></label>
+                <input type="password" placeholder="Enter Password" name="password" id="password" required>
+
+                <button type="submit" class="btn">Register</button>
+                <button type="button" class="btn cancel" onclick="closeRegisterForm()">Close</button>
+            </form>
+        </div>
+        <!-- A button to open the popup form -->
+        <button class="open-button-login" onclick="openLoginForm()">Log In</button>
+        <button class="open-button-register" onclick="openRegisterForm()">Register</button>
+
+        <div class="form-popup" id="loginForm">
+            <form action="/login" class="form-container" method="post">
+                <h1>Login</h1>
+                <hr>
+                <label for="userName"><b>Username</b></label>
+                <input type="text" placeholder="Enter Username" name="userName" required>
+
+                <label for="password"><b>Password</b></label>
+                <input type="password" placeholder="Enter Password" name="password" required>
+
+                <button type="submit" class="btn">Login</button>
+                <button type="button" class="btn cancel" onclick="closeLoginForm()">Close</button>
+            </form>
+        </div>
+    </div>
+
+
+    <div class="center">
+        <center id = "mainContent">
+
+            <h1>O NÁS</h1>
+
+
+            <i id ="person1" class='fas fa-user-alt'></i>
+            <i id ="person2" class='fas fa-user-alt'></i>
+            <i id ="person3" class='fas fa-user-alt'></i>
+
+            <div class="aboutPerson1">
+                <p>
+                    Kristián<br>
+                    Junior Java Developer<br>
+                </p>
+            </div>
+
+            <div class="aboutPerson2">
+                <p>
+                    Ján<br>
+                    Junior Java Developer<br>
+                </p>
+            </div>
+
+            <div class="aboutPerson3">
+                <p>
+                    David<br>
+                    Junior Java Developer<br>
+                </p>
+            </div>
+
+            <h2>COVID - 19</h2>
+            <div class="covid19">
+            <p>COVID-19 je infekčné ochorenie, vyvolané koronavírusom SARS-CoV-2. Prvýkrát bol identifikovaný u
+                pacientov so závažným respiračným ochorením v decembri roku 2019 v čínskom meste Wu-chan. COVID-19
+                postihuje najmä dýchací systém, v ťažkých prípadoch vyvoláva ťažký zápal pľúc a môže viesť až k
+                úmrtiu pacienta. Vírus sa prenáša kvapôčkami sekrétu pri kašli, kýchaní a rozprávaní. Ohrozuje osoby,
+                ktoré sú v blízkom alebo dlhšie trvajúcom kontakte s nakazeným. Infekcia sa prenáša aj cez kontaminované
+                predmety.<br><br>
+                V rámci prevencie vydal Úrad verejného zdravotníctva SR opatrenie, v rámci ktorého sa zakazuje vychádzať a
+                pohybovať sa na verejnosti bez prekrytia horných dýchacích ciest. Všetci občania teda majú povinnosť nosiť
+                rúško všade mimo svojho bydliska. Verejnosti sa ďalej odporúča dodržiavať nasledovné preventívne opatrenia.
+                Umývajte si ruky často mydlom a vodou najmenej po dobu 20 sekúnd. Ak nie je k dispozícii mydlo a voda, treba
+                použiť dezinfekčný prostriedok na ruky na báze alkoholu. Očí, nosa ani úst sa nedotýkajte neumytými rukami.
+                Zakrývajte si nos a ústa pri kašľaní a kýchaní jednorazovou papierovou vreckovkou a následne ju zahoďte do koša.
+                Vyhýbajte sa blízkemu kontaktu s ľuďmi, ktorí javia príznaky nádchy alebo chrípky. Ak ste chorý, kontaktujte svojho
+                ošetrujúceho lekára, ktorý určí ďalší postup liečby, doma na lôžku sa z ochorenia liečte v samostatnej izbe.
+                V domácnosti dbajte na zvýšenú dezinfekciu povrchov. V priestoroch, kde sa pohybuje veľa ľudí (obchody, pošta, MHD,…),
+                používajte jednorazové rukavice.
+            </p>
+            </div>
+
+            <h3>ŠTATISTIKY</h3>
+
+            <div id="positiveRegionTestsGraph">
+                <canvas id="positiveRegionTests"></canvas>
+            </div>
+
+            <div id="actualPositiveSum">
+                <div class="centerText">
+                16 000<br>
+                Aktuálny počet nakazených na Slovensku
+                </div>
+            </div>
+
+            <div id="positiveSum">
+                <div class="centerText">
+                    16 000<br>
+                    Aktuálny počet nakazených na Slovensku
+                </div>
+            </div>
+
+            <div id="negativeRegionTestsGraph">
+                <canvas id="negativeRegionTests"></canvas>
+            </div>
+
+            <div id="positiveVsNegativeGraph">
+                <canvas id="positiveVsNegative"></canvas>
+            </div>
+
+            <div id="positivity_rateGraph">
+                <canvas id="positivity_rate"></canvas>
+            </div>
+
+            <div id="actualRegionPatientsGraph">
+                <canvas id="actualRegionPatients"></canvas>
+            </div>
+
+            <div id="actualRegCapacityGraph">
+                <canvas id="actualRegCapacity"></canvas>
+            </div>
+
+            <div id="vaccinationsGraph">
+                <canvas id="vaccinations"></canvas>
+            </div>
+
+            <div id="dose1">
+                <div class="centerText">
+                    16 000<br>
+                    Aktuálny počet nakazených na Slovensku
+                </div>
+            </div>
+
+            <div id="dose2">
+                <div class="centerText">
+                    16 000<br>
+                    Aktuálny počet nakazených na Slovensku
+                </div>
+            </div>
+
+            <div class="container">
+                <table id="example" class="display" style="width:100%">
+                    <thead>
+                    <tr>
+                        <th>Title</th>
+                        <th>Free beds</th>
+                        <th>Confirmed covid</th>
+                        <th>No covid</th>
+                        <th>Suspect covid</th>
+                    </tr>
+                    </thead>
+
+                    <tfoot>
+                    <tr>
+
+                        <th>Title</th>
+                        <th>Free beds</th>
+                        <th>Confirmed covid</th>
+                        <th>No covid</th>
+                        <th>Suspect covid</th>
+                    </tr>
+                    </tfoot>
+                </table>
+
+            </div>
+
+<!--            <div id="chart-container">-->
+<!--                <canvas id="positiveRegionTests"></canvas>-->
+<!--                <canvas id="negativeRegionTests"></canvas>-->
+<!--                <canvas id="positiveVsNegative"></canvas>-->
+<!--                <canvas id="positivity_rate"></canvas>-->
+<!--                <canvas id="actualRegionPatients"></canvas>-->
+<!--                <canvas id="vaccinations"></canvas>-->
+<!--                <canvas id="actualRegCapacity"></canvas>-->
+<!--            </div>-->
+
+<!--            <div th:if="${@userController.loggedIn}">-->
+<!--                <label for="comment">Enter Comment:</label> <br/>-->
+<!--                <form id="commentForm">-->
+<!--                    <textarea id="comment" type="textare" name="comment" rows="4" cols="60" maxlength="1000"></textarea><br>-->
+<!--                    <button id="commentSubmit" type="submit">Odoslať</button>-->
+<!--                    <br/>-->
+<!--                </form>-->
+<!--            </div>-->
+
+<!--            <div>-->
+<!--                <table class="comment">-->
+<!--                    <thead>-->
+<!--                    <tr>-->
+<!--                        <th>Name</th>-->
+<!--                        <th>Comment</th>-->
+<!--                        <th>Date</th>-->
+<!--                    </tr>-->
+<!--                    </thead>-->
+<!--                    <h3>Comments</h3>-->
+
+<!--                    <tbody id="commentsTable">-->
+<!--                    </tbody>-->
+<!--                </table>-->
+<!--            </div>-->
+        </center>
+    </div>
+
+    <script type="text/javascript">
+        function openLoginForm() {
+          document.getElementById("loginForm").style.display = "block";
+        }
+
+        function closeLoginForm() {
+          document.getElementById("loginForm").style.display = "none";
+        }
+
+        function openRegisterForm() {
+          document.getElementById("registerForm").style.display = "block";
+        }
+
+        function closeRegisterForm() {
+          document.getElementById("registerForm").style.display = "none";
+        }
+
+        const viewElements = {
+            comments: document.getElementById("commentsTable")
+        };
+
+        fetchAndRenderComments("/api/comment", viewElements);
+
+        document.getElementById("commentForm").addEventListener("submit", event => {
+            event.preventDefault();
+            submitComment("http://localhost:8080/coronastudio/jsoncomment");
+        })
+
+        async function submitComment(url) {
+            const request =
+                {
+                    method: 'POST',
+                    body: document.getElementById("comment").value.trim()
+                }
+            await fetch(url, request)
+                .then(response => {
+                    if (response.ok) {
+                        return response.text();
+                    } else {
+                        return Promise.reject(new Error(`Server answered with ${response.status}: ${response.statusText}.`));
+                    }
+                });
+
+            fetchAndRenderComments("/api/comment", viewElements);
+        }
+
+        //---------------------fetching
+        function fetchAndRenderComments(url, viewElements) {
+            fetch(url)  //there may be a second parameter, an object wih options, but we do not need it now.
+                .then(response => {      //fetch promise fullfilled (operation completed successfully)
+                    if (response.ok) {    //successful execution includes an error response from the server. So we have to check the return status of the response here.
+                        return response.json(); //we return a new promise with the response data as a js object, constructed from the JSON string in the response
+                    } else { //if we get server error
+                        return Promise.reject(new Error(`Comments acquisition failed. Server answered with ${response.status}: ${response.statusText}.`)); //we return a rejected promise to be catched later
+                    }
+                })
+                .then(comments => { //here we process the returned response data in JSON ...
+                    renderComments(comments, viewElements);
+                })
+                .catch(error => { ////here we process all the failed promises
+                    errorMessage = "Nepodarilo sa získať alebo zobraziť komentáre. Podrobnosti: " + error;
+                    viewElements.comments.innerHTML = errorMessage;
+                });
+        }
+
+        //-------------------rendering
+        function renderComments(comments, viewElements) {
+            const rowCount = comments.length;
+            let htmlToRender = "";
+
+            for (row = 0; row < rowCount; row++) {
+                htmlToRender +=
+                    `<tr>
+                        <td>${comments[row].username}</td>
+                        <td>${comments[row].comment}</td>
+                        <td>${comments[row].commentedon}</td>
+                    </tr>`;
+            }
+
+            viewElements.comments.innerHTML = htmlToRender;
+        }
+    </script>
+</body>
+</html>

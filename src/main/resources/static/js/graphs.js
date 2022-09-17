@@ -395,5 +395,26 @@ $(document).ready(function () {
     });
 });
 
+var xmlthttp = new XMLHttpRequest();
+var url = "http://localhost:8080/api/cities/ActualDataTestTDO"
+xmlthttp.open("GET", url, true)
+xmlthttp.send();
+xmlthttp.onreadystatechange = function () {
+    if (this.readyState == 4 && this.status == 200) {
+        var data = JSON.parse(this.responseText);
+        $('#example').DataTable({
+            "data": data,
+            columns: [
+                {data: 'title'},
+                {data: 'free_all'},
+                {data: 'confirmed_covid'},
+                {data: 'non_covid'},
+                {data: 'suspected_covid'},
+
+            ],
+        });
+    }
+}
+
 
 

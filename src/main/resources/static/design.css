@@ -1,0 +1,397 @@
+@import url("https://fonts.googleapis.com/css2?family=Encode+Sans+Condensed:wght@100;200;300;400;500;600;700;800;900&display=swap");
+* {
+  margin: 0;
+}
+
+body {
+  background-color: #FFFFFF;
+}
+
+#mainContent {
+  position: absolute;
+  width: 90%;
+  height: 690%;
+  background: #FFFFFF;
+  box-shadow: 0px 0px 30px 6px rgba(0, 0, 0, 0.1);
+  border-radius: 10px;
+}
+
+.center {
+  display: flex;
+  justify-content: center;
+}
+
+.nav{
+  list-style:none;
+  margin:0;
+  padding:0;
+  text-align:center;
+}
+.nav li{
+  display:inline;
+}
+.nav a{
+  display:inline-block;
+  padding: 14px 16px;
+  color: #21A826;
+  font-style: normal;
+  font-size: 18px;
+  line-height: 18px;
+  text-align: center;
+  text-decoration: none;
+}
+
+h1{
+  position: absolute;
+  top: 1%;
+  left: 45.43%;
+  right: 45.43%;
+  font-style: normal;
+  font-weight: 500;
+  font-size: 32px;
+  line-height: 25px;
+  text-align: center;
+  letter-spacing: 0.12em;
+  color: #21A826;
+}
+
+h2{
+  position: absolute;
+  top: 8.5%;
+  left: 42%;
+  right: 42%;
+  font-style: normal;
+  font-weight: 500;
+  font-size: 32px;
+  line-height: 25px;
+  text-align: center;
+  letter-spacing: 0.12em;
+  color: #21A826;
+}
+
+#person1{
+  position: absolute;
+  left: 14.24%;
+  right: 76.62%;
+  top: 3%;
+  bottom: 91.96%;
+  color: #999999;
+  font-size:1000%;
+}
+
+.aboutPerson1{
+  position: absolute;
+  left: 14.24%;
+  top: 6%;
+}
+
+#person2{
+  position: absolute;
+  left: 45.43%;
+  right: 45.43%;
+  top: 3%;
+  bottom: 91.96%;
+  color: #999999;
+  font-size:1000%;
+}
+.aboutPerson2{
+  position: absolute;
+  left: 45.43%;
+  top: 6%;
+}
+
+#person3{
+  position: absolute;
+  left: 76.62%;
+  right: 14.24%;
+  top: 3%;
+  bottom: 91.96%;
+  color: #999999;
+  font-size:1000%;
+}
+.aboutPerson3{
+  position: absolute;
+  left: 76.62%;
+  top: 6%;
+}
+
+.covid19{
+  position: absolute;
+  top: 10%;
+  left: 10%;
+  right: 10%;
+}
+
+p{
+  color: #999999;
+  font-style: normal;
+  font-weight: 400;
+  font-size: 100%;
+  line-height: 170%;
+  text-align: justify;
+  letter-spacing: 0.12em;
+}
+
+h3{
+  position: absolute;
+  top: 15%;
+  left: 39%;
+  margin: 5%;
+  font-style: normal;
+  font-weight: 500;
+  font-size: 32px;
+  line-height: 25px;
+  text-align: center;
+  letter-spacing: 0.12em;
+  color: #21A826;
+}
+
+#positiveRegionTestsGraph {
+  box-sizing: border-box;
+  position: absolute;
+  width: 50%;
+  height: 7%;
+  left: 10%;
+  top: 18%;
+  background: #F8F8F8;
+  border: 2px solid #DBDBDB;
+  border-radius: 15px;
+}
+
+/*h4 {*/
+/*  font-style: normal;*/
+/*  font-weight: 400;*/
+/*  font-size: 46px;*/
+/*  line-height: 25px;*/
+/*  text-align: center;*/
+/*  letter-spacing: 0.12em;*/
+/*  color: #21A826;*/
+/*}*/
+
+
+#actualPositiveSum {
+  box-sizing: border-box;
+  position: absolute;
+  width: 25%;
+  height: 3%;
+  right: 10%;
+  top: 18%;
+  background: #F8F8F8;
+  border: 2px solid #DBDBDB;
+  border-radius: 15px;
+  text-align: center;
+}
+
+#positiveSum {
+  box-sizing: border-box;
+  position: absolute;
+  width: 25%;
+  height: 3%;
+  right: 10%;
+  top: 22%;
+  background: #F8F8F8;
+  border: 2px solid #DBDBDB;
+  border-radius: 15px;
+  text-align: center;
+}
+
+#centerText{
+  position: absolute;
+  top: 50%;
+  width: 10%;
+  height: 2.5%;
+  transform: translateY(-50%);
+}
+
+#negativeRegionTestsGraph {
+  box-sizing: border-box;
+  position: absolute;
+  width: 50%;
+  height: 7%;
+  left: 10%;
+  top: 26%;
+  background: #F8F8F8;
+  border: 2px solid #DBDBDB;
+  border-radius: 15px;
+}
+
+#positiveVsNegativeGraph {
+  box-sizing: border-box;
+  position: absolute;
+  width: 25%;
+  height: 7%;
+  right: 10%;
+  top: 26%;
+  background: #F8F8F8;
+  border: 2px solid #DBDBDB;
+  border-radius: 15px;
+}
+
+#positivity_rateGraph {
+  box-sizing: border-box;
+  position: absolute;
+  width: auto;
+  height: auto;
+  right: 10%;
+  left: 10%;
+  top: 34%;
+  background: #F8F8F8;
+  border: 2px solid #DBDBDB;
+  border-radius: 15px;
+}
+
+#actualRegionPatientsGraph {
+  box-sizing: border-box;
+  position: absolute;
+  width: 38%;
+  height: auto;
+  left: 10%;
+  top: 45.2%;
+  background: #F8F8F8;
+  border: 2px solid #DBDBDB;
+  border-radius: 15px;
+}
+
+#actualRegCapacityGraph {
+  box-sizing: border-box;
+  position: absolute;
+  width: 38%;
+  height: auto;
+  right: 10%;
+  top: 45.2%;
+  background: #F8F8F8;
+  border: 2px solid #DBDBDB;
+  border-radius: 15px;
+}
+
+#vaccinationsGraph {
+  box-sizing: border-box;
+  position: absolute;
+  width: 50%;
+  height: 7%;
+  left: 10%;
+  top: 51%;
+  background: #F8F8F8;
+  border: 2px solid #DBDBDB;
+  border-radius: 15px;
+}
+
+#dose1 {
+  box-sizing: border-box;
+  position: absolute;
+  width: 25%;
+  height: 3%;
+  right: 10%;
+  top: 51%;
+  background: #F8F8F8;
+  border: 2px solid #DBDBDB;
+  border-radius: 15px;
+  text-align: center;
+}
+
+#dose2 {
+  box-sizing: border-box;
+  position: absolute;
+  width: 25%;
+  height: 3%;
+  right: 10%;
+  top: 55%;
+  background: #F8F8F8;
+  border: 2px solid #DBDBDB;
+  border-radius: 15px;
+  text-align: center;
+}
+
+
+.open-button-login {
+  color: #21A826;
+  padding: 1rem 3rem;
+  border: none;
+  cursor: pointer;
+}
+
+.open-button-register {
+  color: #21A826;
+  padding: 1rem 3rem;
+  border: none;
+  cursor: pointer;
+}
+
+/* The popup form - hidden by default */
+.form-popup {
+  display: none;
+  position: fixed;
+  border: 3px solid #f1f1f1;
+  z-index: 9;
+}
+
+/* Add styles to the form container */
+.form-container {
+  max-width: 300px;
+  padding: 10px;
+  background-color: white;
+}
+
+/* Full-width input fields */
+.form-container input[type=text], .form-container input[type=password] {
+  width: 100%;
+  padding: 15px;
+  margin: 5px 0 22px 0;
+  border: none;
+  background: #f1f1f1;
+}
+
+/* When the inputs get focus, do something */
+.form-container input[type=text]:focus, .form-container input[type=password]:focus {
+  background-color: #ddd;
+  outline: none;
+}
+
+/* Set a style for the submit/login button */
+.form-container .btn {
+  background-color: #04AA6D;
+  color: white;
+  padding: 16px 20px;
+  border: none;
+  cursor: pointer;
+  width: 100%;
+  margin-bottom:10px;
+  opacity: 0.8;
+}
+
+/* Add a red background color to the cancel button */
+.form-container .cancel {
+  background-color: red;
+}
+
+/* Add some hover effects to buttons */
+.form-container .btn:hover, .open-button-login:hover, open-button-register {
+  opacity: 1;
+}
+
+input,select{
+  background: whitesmoke !important;
+}
+.container{
+  box-sizing: border-box;
+  position: absolute;
+  width: 100%;
+  height: auto;
+  right: 10%;
+  left: 10%;
+  top: 60%;
+  background: #F8F8F8;
+  border: 2px solid #DBDBDB;
+  border-radius: 15px;
+  text-align: center;
+}
+table thead tr th,
+table thead tr td,
+table tfoot tr th,
+table tfoor tr td{
+  background: #000;
+  color: #fff;
+}
+#example_filter{
+  margin-bottom: 20px;
+}

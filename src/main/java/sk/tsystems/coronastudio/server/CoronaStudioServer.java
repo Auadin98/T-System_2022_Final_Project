@@ -14,6 +14,10 @@ import sk.tsystems.coronastudio.service.hospitalBedsServices.*;
 import sk.tsystems.coronastudio.service.hospitalPatientsServices.*;
 import sk.tsystems.coronastudio.service.hospitalStaffServices.HospitalStaffService;
 import sk.tsystems.coronastudio.service.hospitalStaffServices.HospitalStaffServiceJPA;
+import sk.tsystems.coronastudio.service.userServices.CommentService;
+import sk.tsystems.coronastudio.service.userServices.CommentServiceJPA;
+import sk.tsystems.coronastudio.service.userServices.UserService;
+import sk.tsystems.coronastudio.service.userServices.UserServiceJPA;
 import sk.tsystems.coronastudio.service.vaccinationsServices.*;
 
 @SpringBootApplication
@@ -99,4 +103,13 @@ public class CoronaStudioServer {
 
     @Bean
     public DistrictAgTestsService districtAgTestsService(){return new DistrictAgTestsServiceJPA();}
+
+    @Bean
+    public UserService userService() {
+        return new UserServiceJPA();
+    }
+    @Bean
+    public CommentService commentService(){
+        return new CommentServiceJPA();
+    }
 }
