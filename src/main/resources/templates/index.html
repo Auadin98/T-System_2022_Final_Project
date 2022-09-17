@@ -5,54 +5,31 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
     <meta http-equiv="X-UA-Compatible" content="ie=edge"/>
     <title>Document</title>
-    <link rel="stylesheet" href="/style.css"/>
-        <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css" integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T" crossorigin="anonymous">
-        <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.3.1/css/all.css" integrity="sha384-mzrmE5qonljUremFsqc01SB46JvROS7bZs3IO2EmfFsd15uHvIt+Y8vEf7N7fWAU" crossorigin="anonymous">
+        <link rel="stylesheet" href="/style.css"/>
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/twitter-bootstrap/5.2.0/css/bootstrap.min.css ">
     <link rel="stylesheet" href="https://cdn.datatables.net/1.12.1/css/dataTables.bootstrap5.min.css">
-
-
-<!--    <script src="https://cdn.datatables.net/1.12.1/js/jquery.dataTables.min.js"></script>-->
-<!--    <script src="https://cdn.datatables.net/1.12.1/js/dataTables.bootstrap5.min.js"></script>-->
-    <script src="https://code.jquery.com/jquery-3.5.1.js"></script>
-
+    <script src = "https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+    <script src="https://code.jquery.com/jquery-3.6.1.js"></script>
+    <script src="https://cdn.datatables.net/1.12.1/js/jquery.dataTables.min.js"></script>
+    <script src="https://cdn.datatables.net/1.12.1/js/dataTables.bootstrap5.min.js"></script>
 
 </head>
 <body>
 <div class="container">
-    <h1>Data search</h1>
-    <div id="searchWrapper">
-        <input
-                type="text"
-                name="searchBar"
-                id="searchBar"
-                placeholder="search for a character"
-        />
-    </div>
-
-
-    <form action="">
-        <!--        <input type="search" required>-->
-        <!--        <i class="fa fa-search"></i>-->
-        <a href="javascript:void(0)" id="clear-btn"></a>
-    </form>
-
-    <table class="table table-striped" id="example" style="width:100%">
+    <table id="example" class="display" style="width:100%">
         <thead>
-        <tr>
-            <th data-column="id" data-order="desc">Id &#9650</th>
-            <th data-column="title" data-order="desc">Title &#9650</th>
-            <th data-column="free_all" data-order="desc">Free beds &#9650</th>
-            <th data-column="confirmed_covid" data-order="desc">Confirmed covid &#9650</th>
-            <th data-column="non_covid" data-order="desc">No covid &#9650</th>
-            <th data-column="suspect_covid" data-order="desc">Suspect covid &#9650</th>
-        </tr>
+            <tr>
+                <th>Title</th>
+                <th>Free beds</th>
+                <th>Confirmed covid</th>
+                <th>No covid</th>
+                <th>Suspect covid</th>
+             </tr>
         </thead>
-        <tbody id="myTable">
-        </tbody>
+
         <tfoot>
         <tr>
-            <th>Id</th>
+
             <th>Title</th>
             <th>Free beds</th>
             <th>Confirmed covid</th>

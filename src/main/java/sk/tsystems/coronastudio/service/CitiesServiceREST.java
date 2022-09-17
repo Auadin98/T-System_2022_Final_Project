@@ -8,6 +8,7 @@ import sk.tsystems.coronastudio.entity.Cities;
 
 import java.util.Arrays;
 import java.util.List;
+import java.util.Map;
 
 public class CitiesServiceREST implements CitiesService{
 
@@ -27,8 +28,8 @@ public class CitiesServiceREST implements CitiesService{
     }
 
     @Override
-    public List<ActualDataTestTDO> getActualDataCities() {
-        return Arrays.asList(restTemplate.getForEntity(url+"/actualcities/",ActualDataTestTDO[].class).getBody());
+    public List<Map<String, Object>> getActualDataCities() {
+        throw new UnsupportedOperationException("Not supported via web.");
     }
 
 

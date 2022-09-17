@@ -2,11 +2,11 @@ package sk.tsystems.coronastudio.server.webservice;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
-import sk.tsystems.coronastudio.ObjectsDTO.ActualDataTestTDO;
 import sk.tsystems.coronastudio.entity.Cities;
 import sk.tsystems.coronastudio.service.CitiesService;
 
 import java.util.List;
+import java.util.Map;
 
 @RestController
 @RequestMapping("/api/cities")
@@ -21,7 +21,7 @@ public class CitiesWebServiceRest {
     }
 
     @GetMapping("/ActualDataTestTDO")
-    public List<ActualDataTestTDO> actualDataTestTDOS(){
+    public List<Map<String, Object>> actualDataTestTDOS(){
         return citiesService.getActualDataCities();
     }
 

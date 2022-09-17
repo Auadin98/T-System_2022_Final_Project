@@ -1,56 +1,36 @@
-.styled-table {
-    border-collapse: collapse;
-    margin: 25px 0;
-    font-size: 2em;
-    font-family: sans-serif;
-    min-width: 400px;
-    box-shadow: 0 0 20px rgba(0, 0, 0, 0.15);
+*,*:after,*:before{
+    -webkit-box-sizing: border-box;
+    -moz-box-sizing: border-box;
+    -ms-box-sizing:border-box;
+    box-sizing: border-box;
 }
 
-
-
-.styled-table thead tr {
-    background-color: #009879;
-    color: #ffffff;
-    text-align: left;
-}
-
-.styled-table th,
-.styled-table td {
-    padding: 12px 15px;
-}
-
-
-
-.styled-table tbody tr {
-    border-bottom: 1px solid #dddddd;
-}
-
-.styled-table tbody tr:nth-of-type(even) {
-    background-color: #f3f3f3;
-}
-
-.styled-table tbody tr:last-of-type {
-    border-bottom: 2px solid #009879;
-}
-
-.styled-table tbody tr.active-row {
-    font-weight: bold;
-    color: #009879;
-
-
-}
-
-th {
-    background: #242424;
-    position: sticky;
-    box-shadow: 0 2px 2px -1px rgba(0, 0, 0, 0.4);
-}
-
-body {
-    padding: 0;
+body{
+    font-family: Arial;
+    font-size: 18px;
     margin: 0;
-    height: 100vh;
+    background: grey;
+    color: aliceblue;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    min-height: 100vh;
+}
+
+input,select{
+    background: whitesmoke !important;
+}
+.container{
+    max-width: 1600px;
     width: 100%;
-    background-image: url("https://cdn.worktechacademy.com/uploads/2020/04/Home-Landing-scaled.jpeg") ;
+}
+table thead tr th,
+table thead tr td,
+table tfoot tr th,
+table tfoor tr td{
+    background: #000;
+    color: #fff;
+}
+#example_filter{
+    margin-bottom: 20px;
 }
