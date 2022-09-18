@@ -21,10 +21,10 @@
 </head>
 <header>
     <nav>
-        <a class="active" href="#home">Home</a>
-        <a href="#news">News</a>
-        <a href="#contact">Contact</a>
-        <a href="#about">About</a>
+        <a href="#covid">COVID - 19</a>
+        <a href="#statistiky">Štatistiky</a>
+        <a href="#okresy">Okresy</a>
+        <a href="#komentare">Komentáre</a>
     </nav>
     <div class="user" th:if="${@userController.loggedIn}">
         <a class="btn" href="/logout">Odhlásiť sa</a>
@@ -96,7 +96,7 @@
             </p>
         </div>
 
-        <h2>COVID - 19</h2>
+        <h2 id="covid">COVID - 19</h2>
         <div class="covid19">
             <p>COVID-19 je infekčné ochorenie, vyvolané koronavírusom SARS-CoV-2. Prvýkrát bol identifikovaný u
                 pacientov so závažným respiračným ochorením v decembri roku 2019 v čínskom meste Wu-chan. COVID-19
@@ -126,7 +126,7 @@
             </p>
         </div>
 
-        <h3>ŠTATISTIKY</h3>
+        <h3 id="statistiky">ŠTATISTIKY</h3>
 
         <div id="positiveRegionTestsGraph">
             <canvas id="positiveRegionTests"></canvas>
@@ -190,7 +190,7 @@
             </div>
         </div>
 
-        <div class="container">
+        <div id="okresy" class="container">
 
             <div class="boxText"> Tabuľka aktuálnych dát okresov</div><br>
 
@@ -219,7 +219,7 @@
             </table>
         </div>
 
-        <div class="commentSection">
+        <div id="komentare" class="commentSection">
             <div th:if="${@userController.loggedIn}">
                 <label class="boxSmallText" for="comment">Enter Comment:</label> <br><br>
                 <form id="commentForm">
