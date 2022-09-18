@@ -25,10 +25,7 @@ $(document).ready(function () {
                 datasets: [
                     {
                         label: 'Počet pozitívnych testov v krajoch od začiatku pandémie.',
-                        backgroundColor: ['rgba(245, 39, 67, 0.8)','rgba(41, 39, 245, 0.8)',
-                                          'rgba(39, 245, 234, 0.8)','rgba(245, 234, 39, 0.8)',
-                                          'rgba(245, 148, 39, 0.8)','rgba(238, 39, 245, 0.8)',
-                                          'rgba(192, 191, 192, 0.8)','rgba(49, 201, 50, 0.8)'],
+                        backgroundColor: 'rgba(24,154,180,0.75)',
                         borderColor: 'rgba(200, 200, 200, 0.75)',
                         hoverBackgroundColor: 'rgba(200, 200, 200, 1)',
                         hoverBorderColor: 'rgba(200, 200, 200, 1)',
@@ -78,7 +75,7 @@ $(document).ready(function () {
                 datasets: [
                     {
                         label: 'Počet negatívnych testov v krajoch od začiatku pandémie.',
-                        backgroundColor: 'rgba(200, 200, 200, 0.75)',
+                        backgroundColor: 'rgba(24,154,180,0.75)',
                         borderColor: 'rgba(200, 200, 200, 0.75)',
                         hoverBackgroundColor: 'rgba(200, 200, 200, 1)',
                         hoverBorderColor: 'rgba(200, 200, 200, 1)',
@@ -124,7 +121,7 @@ $(document).ready(function () {
                 datasets: [
                     {
                         label: 'Počet negatívnych testov a počet pozitývnych testov.',
-                        backgroundColor: ['rgba(200, 100, 200, 0.75)', 'rgba(100, 200, 200, 0.75)'],
+                        backgroundColor: ['rgba(24,154,180,0.75)', 'rgba(255, 35, 0, 0.8)'],
                         borderColor: 'rgba(200, 200, 200, 0.75)',
                         hoverBackgroundColor: 'rgba(200, 200, 200, 1)',
                         hoverBorderColor: 'rgba(200, 200, 200, 1)',
@@ -215,7 +212,7 @@ $(document).ready(function () {
                 datasets: [
                     {
                         label: 'Priemerná miera pozitivity za posledné 2 roky.',
-                        backgroundColor: 'rgba(100, 200, 200, 0.75)',
+                        backgroundColor: 'rgba(24,154,180,0.75)',
                         borderColor: 'rgba(200, 200, 200, 0.75)',
                         hoverBackgroundColor: 'rgba(200, 200, 200, 1)',
                         hoverBorderColor: 'rgba(200, 200, 200, 1)',
@@ -265,7 +262,7 @@ $(document).ready(function () {
                 datasets: [
                     {
                         label: 'Aktuálny počet pacientov v nemocniciach s ochorením COVID 19.',
-                        backgroundColor: 'rgba(200, 200, 200, 0.75)',
+                        backgroundColor: 'rgba(24,154,180,0.75)',
                         borderColor: 'rgba(200, 200, 200, 0.75)',
                         hoverBackgroundColor: 'rgba(200, 200, 200, 1)',
                         hoverBorderColor: 'rgba(200, 200, 200, 1)',
@@ -323,7 +320,7 @@ $(document).ready(function () {
                 labels: title,
                 datasets: [{
                     label: "1. dávka",
-                    backgroundColor: "blue",
+                    backgroundColor: 'rgba(24,154,180,0.75)',
                     data: dose1
                 }, {
                     label: "2. dávka",
@@ -370,10 +367,7 @@ $(document).ready(function () {
                 datasets: [
                     {
                         label: 'Počet voľných miest pre ochoronnie covid19.',
-                        backgroundColor: ['rgba(245, 39, 67, 0.8)','rgba(41, 39, 245, 0.8)',
-                            'rgba(39, 245, 234, 0.8)','rgba(245, 234, 39, 0.8)',
-                            'rgba(245, 148, 39, 0.8)','rgba(238, 39, 245, 0.8)',
-                            'rgba(192, 191, 192, 0.8)','rgba(49, 201, 50, 0.8)'],
+                        backgroundColor: 'rgba(24,154,180,0.75)',
                         borderColor: 'rgba(200, 200, 200, 0.75)',
                         hoverBackgroundColor: 'rgba(200, 200, 200, 1)',
                         hoverBorderColor: 'rgba(200, 200, 200, 1)',
@@ -412,6 +406,7 @@ xmlthttp.onreadystatechange = function () {
                 {data: 'suspected_covid'},
 
             ],
+            "pageLength": 25,
         });
     }
 }

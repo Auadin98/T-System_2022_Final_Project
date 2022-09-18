@@ -10,9 +10,13 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.context.WebApplicationContext;
 import sk.tsystems.coronastudio.entity.Comment;
+import sk.tsystems.coronastudio.entity.vaccinations.SlovakiaVaccinations;
+import sk.tsystems.coronastudio.service.agTestsServices.SlovakiaAgTestsService;
 import sk.tsystems.coronastudio.service.userServices.CommentService;
+import sk.tsystems.coronastudio.service.vaccinationsServices.VaccinationsService;
 
 import java.util.Date;
+
 
 @Controller
 @RequestMapping("/coronastudio")
@@ -23,6 +27,13 @@ public class CoronaStudioController {
 
     @Autowired
     private CommentService commentService;
+
+    @Autowired
+    private SlovakiaAgTestsService slovakiaAgTestsService;
+
+    @Autowired
+    private VaccinationsService vaccinationsService;
+
 
     @RequestMapping
     public String processUserInput(Model model) {
@@ -39,5 +50,9 @@ public class CoronaStudioController {
 
     private void prepareModel(Model model) {
         model.addAttribute("comments", commentService.getComment());
+        model.addAttribute("posCount", slovakiaAgTestsService.getPosCount());
+        model.addAttribute("posSum", slovakiaAgTestsService.getPosSum());
+        model.addAttribute("dose1", vaccinationsService.getDose1Sum());
+        model.addAttribute("dose2", vaccinationsService.getDose2Sum());
     }
 }

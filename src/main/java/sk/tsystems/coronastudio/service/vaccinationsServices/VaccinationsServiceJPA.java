@@ -25,6 +25,20 @@ public class VaccinationsServiceJPA implements VaccinationsService{
     }
 
     @Override
+    public int getDose1Sum() {
+        return ((Number)entityManager.createQuery("select s.dose1_sum from SlovakiaVaccinations s order by s.updated_at desc")
+                .setMaxResults(1)
+                .getSingleResult()).intValue();
+    }
+
+    @Override
+    public int getDose2Sum() {
+        return ((Number)entityManager.createQuery("select s.dose2_sum from SlovakiaVaccinations s order by s.updated_at desc")
+                .setMaxResults(1)
+                .getSingleResult()).intValue();
+    }
+
+    @Override
     public void reset() {
         entityManager.createNativeQuery("DELETE FROM vaccinations").executeUpdate();
     }

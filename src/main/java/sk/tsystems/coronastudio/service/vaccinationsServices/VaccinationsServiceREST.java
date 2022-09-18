@@ -27,6 +27,16 @@ public class VaccinationsServiceREST implements VaccinationsService{
     }
 
     @Override
+    public int getDose1Sum() {
+        throw new UnsupportedOperationException("Not supported via web.");
+    }
+
+    @Override
+    public int getDose2Sum() {
+        throw new UnsupportedOperationException("Not supported via web.");
+    }
+
+    @Override
     public void reset() {
         throw new UnsupportedOperationException("Not supported via web.");
     }

@@ -10,5 +10,9 @@ public interface VaccinationsService {
 
     public List<Vaccinations> getVaccinations();
 
+    public int getDose1Sum();
+
+    public int getDose2Sum();
+
     public void reset();
 }

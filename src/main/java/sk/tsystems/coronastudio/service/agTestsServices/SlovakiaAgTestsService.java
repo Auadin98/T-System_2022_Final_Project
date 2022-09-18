@@ -14,5 +14,8 @@ public interface SlovakiaAgTestsService {
 
     public List<SlovakiaAgTests> getAvgPosRate();
 
+    public int getPosCount();
+    public int getPosSum();
+
     public void reset();
 }

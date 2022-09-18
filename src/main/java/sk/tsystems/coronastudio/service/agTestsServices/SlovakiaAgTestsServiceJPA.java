@@ -37,6 +37,20 @@ public class SlovakiaAgTestsServiceJPA  implements SlovakiaAgTestsService{
     }
 
     @Override
+    public int getPosCount() {
+        return ((Number)entityManager.createQuery("select s.positivesCount from SlovakiaAgTests s order by s.updatedAt desc")
+                .setMaxResults(1)
+                .getSingleResult()).intValue();
+    }
+
+    @Override
+    public int getPosSum() {
+        return ((Number)entityManager.createQuery("select s.positivesSum from SlovakiaAgTests s order by s.updatedAt desc")
+                .setMaxResults(1)
+                .getSingleResult()).intValue();
+    }
+
+    @Override
     public void reset(){
         entityManager.createNativeQuery("DELETE FROM slovakia_ag_tests").executeUpdate();
     }

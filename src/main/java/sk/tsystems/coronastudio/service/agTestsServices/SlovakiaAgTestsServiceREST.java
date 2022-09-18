@@ -35,6 +35,16 @@ public class SlovakiaAgTestsServiceREST implements SlovakiaAgTestsService{
     }
 
     @Override
+    public int getPosCount() {
+        throw new UnsupportedOperationException("Not supported via web.");
+    }
+
+    @Override
+    public int getPosSum() {
+        throw new UnsupportedOperationException("Not supported via web.");
+    }
+
+    @Override
     public void reset() {
         throw new UnsupportedOperationException("Not supported via web.");
     }

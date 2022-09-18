@@ -32,4 +32,14 @@ public class SlovakiaAgTestsWebServiceRest {
     public List<SlovakiaAgTests> getAvgPosRate(){
         return slovakiaAgTestsService.getAvgPosRate();
     }
+
+    @GetMapping("/posCount")
+    public int getPosCount(){
+        return slovakiaAgTestsService.getPosCount();
+    }
+
+    @GetMapping("/posSum")
+    public int getPosSum(){
+        return slovakiaAgTestsService.getPosSum();
+    }
 }
