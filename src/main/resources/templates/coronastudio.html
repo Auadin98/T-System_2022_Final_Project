@@ -73,10 +73,11 @@
 
             <h1>O NÁS</h1>
 
-
+            <div class="wrapper">
             <i id ="person1" class='fas fa-user-alt'></i>
             <i id ="person2" class='fas fa-user-alt'></i>
             <i id ="person3" class='fas fa-user-alt'></i>
+            </div>
 
             <div class="aboutPerson1">
                 <p>
@@ -182,62 +183,54 @@
                 <table id="example" class="display" style="width:100%">
                     <thead>
                     <tr>
-                        <th>Title</th>
-                        <th>Free beds</th>
-                        <th>Confirmed covid</th>
-                        <th>No covid</th>
-                        <th>Suspect covid</th>
+                        <th>Okres</th>
+                        <th>Voľné lôžka</th>
+                        <th>Potvrdený covid</th>
+                        <th>Nepotvrdený covid</th>
+                        <th>Podozrenie na covid</th>
                     </tr>
                     </thead>
 
                     <tfoot>
                     <tr>
 
-                        <th>Title</th>
-                        <th>Free beds</th>
-                        <th>Confirmed covid</th>
-                        <th>No covid</th>
-                        <th>Suspect covid</th>
+                        <th>Okres</th>
+                        <th>Voľné lôžka</th>
+                        <th>Potvrdený covid</th>
+                        <th>Nepotvrdený covid</th>
+                        <th>Podozrenie na covid</th>
                     </tr>
                     </tfoot>
                 </table>
 
             </div>
 
-<!--            <div id="chart-container">-->
-<!--                <canvas id="positiveRegionTests"></canvas>-->
-<!--                <canvas id="negativeRegionTests"></canvas>-->
-<!--                <canvas id="positiveVsNegative"></canvas>-->
-<!--                <canvas id="positivity_rate"></canvas>-->
-<!--                <canvas id="actualRegionPatients"></canvas>-->
-<!--                <canvas id="vaccinations"></canvas>-->
-<!--                <canvas id="actualRegCapacity"></canvas>-->
-<!--            </div>-->
+            <div class="commentSection">
+                <div th:if="${@userController.loggedIn}" >
+                    <label for="comment">Enter Comment:</label> <br/>
+                    <form id="commentForm">
+                        <textarea id="comment" type="textare" name="comment" rows="4" cols="60" maxlength="1000"></textarea><br>
+                        <button id="commentSubmit" type="submit">Odoslať</button>
+                        <br/>
+                    </form>
+                </div>
 
-<!--            <div th:if="${@userController.loggedIn}">-->
-<!--                <label for="comment">Enter Comment:</label> <br/>-->
-<!--                <form id="commentForm">-->
-<!--                    <textarea id="comment" type="textare" name="comment" rows="4" cols="60" maxlength="1000"></textarea><br>-->
-<!--                    <button id="commentSubmit" type="submit">Odoslať</button>-->
-<!--                    <br/>-->
-<!--                </form>-->
-<!--            </div>-->
+                <div>
+                    <table class="comment">
+                        <thead>
+                        <tr>
+                            <th>Name</th>
+                            <th>Comment</th>
+                            <th>Date</th>
+                        </tr>
+                        </thead>
+                        <h5>Comments</h5>
 
-<!--            <div>-->
-<!--                <table class="comment">-->
-<!--                    <thead>-->
-<!--                    <tr>-->
-<!--                        <th>Name</th>-->
-<!--                        <th>Comment</th>-->
-<!--                        <th>Date</th>-->
-<!--                    </tr>-->
-<!--                    </thead>-->
-<!--                    <h3>Comments</h3>-->
-
-<!--                    <tbody id="commentsTable">-->
-<!--                    </tbody>-->
-<!--                </table>-->
-<!--            </div>-->
+                        <tbody id="commentsTable">
+                        </tbody>
+                    </table>
+                </div>
+            </div>
         </center>
     </div>
 
